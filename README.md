@@ -1,13 +1,13 @@
-# Poker Game Application
-## A simple poker game where the player competes against the computer
+# Poker Record Tracker
+## A poker tracker that allow users to track and analyze their poker game performance over time
 
 **What will this application do?**
 
-This application will stimulate a poker game, allowing the player to compete against a computer. The player can make decisions such as betting, folding and checking, while the computer will follow a predefined strategy. The game will include basic poker rules and allow players to play serval rounds.
+The Poker Record Tracker would allow users to track and analyze their poker game performance over time. Users can log details of each game, including the result (win/loss), the amount of money won or lost, and the cards they held. The tracker would also provide useful statistics, such as a player's overall win/loss record, the total amount won or lost, and the cards they tend to lose with the most.
 
 **Who will use it?**
 
-This application is designed for anyone interested in poker who wants to play casually against a computer opponent. It's beginner friendly and suitable for those who are just learning the rules of poker.
+This application is designed for anyone interested in poker and their poker performance. For example, an user might be interested to know which hands they win with the most.
 
 **Why is this project of interest to you?**
 
@@ -15,6 +15,21 @@ Poker has always been an intriguing game to me due to its combination of strateg
 
 
 Features:
-- Saved progress, a player can pause and quit the middle of the game and return and contiune playing.
-- Basic poker rules and simple betting system
-- Player vs. Computer gameplay
+- Input a game record
+- view/delete a history of recorded games
+- track total wins/losses or winrate
+- analyze card win/loss patterns
+
+## User Stories
+
+- As a user, I want to be able to log a poker game, including the outcome, amount won or lost, and the cards I held.
+
+- As a user, I want to be able to view a list of all the poker games I have logged, showing the outcome, amount won or lost, and the cards I held.
+
+- As a user, I want to see a summary of my total wins, losses, and the total amount of money I have won or lost over time.
+
+- As a user, I want to be able to see which cards I tend to lose with the most, so I can analyze my gameplay.
+
+- As a user, I want to be able to edit or delete a game record after I’ve logged it.
+
+- As a user, I want to be able to sort the logged games by date, amount won/lost, or outcome, so I can better analyze my performance.
