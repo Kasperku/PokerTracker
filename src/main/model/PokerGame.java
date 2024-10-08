@@ -16,33 +16,32 @@ public class PokerGame {
      */
 
     public PokerGame(boolean haswon, int amount, List<Card> cards) {
-        //stub
+        this.haswon = haswon;
+        this.amount = amount;
+        this.cards = cards;
     }
 
     public boolean getHasWon(){
-        // stub
-        return false;
+        return this.haswon;
     }
 
     public int getAmount(){
-        // stub
-        return 0;
+        return this.amount;
     }
 
     public List<Card> getCards(){
-        //stub
-        return null;
+        return this.cards;
     }
 
     public void setHasWon(boolean hasWon){
-        //stub
+        this.haswon = hasWon;
     }
 
     public void setAmount(int amount){
-        //stub
+        this.amount = amount;
     }
 
     public void setCards(List<Card> cards){
-        //stub
+        this.cards = cards;
     }
 }
