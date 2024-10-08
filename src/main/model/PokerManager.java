@@ -19,18 +19,18 @@ public class PokerManager {
     }
 
     // EFFECTS: analyze which hand lead to most losses 
-    public Map<String, Integer> analyzeLosingHands(List<PokerGame> pokergames){
+    public Map<List<Card>, Integer> analyzeLosingHands(List<PokerGame> pokergames){
         // stubb
         return null;
     }
 
-    // EFFECTS: sort List<PokerGame> by amount won
+    // EFFECTS: sort List<PokerGame> by amount won, largest win on top
     public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames){
         // stub
         return null;
     }
 
-    // EFFECTS: sort List<PokerGame> by win/loss
+    // EFFECTS: sort List<PokerGame> by win/loss, won games on top
     public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames){
         // stub
         return null;
