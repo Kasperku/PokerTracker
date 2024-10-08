@@ -56,8 +56,15 @@ public class PokerManager {
     // EFFECTS: sort List<PokerGame> by win/loss, won games on top
     public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames){
         for (int i = 0; i < pokergames.size() - 1; i++) {
-            // bubble sort
+            for (int j = 0; j < pokergames.size() - i - 1; j++){
+                if (!pokergames.get(j).getHasWon() && pokergames.get(j+1).getHasWon()){
+                    PokerGame dummy = pokergames.get(j);
+                    pokergames.set(j, pokergames.get(j+1));
+                    pokergames.set(j+1, dummy);
+                }
+            }
         }
+    
         return pokergames;
     }
 }
