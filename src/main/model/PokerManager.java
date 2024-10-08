@@ -40,10 +40,8 @@ public class PokerManager {
         for (PokerGame pokergame : pokergames) {
             if (!pokergame.getHasWon()) {
                 if (dummy.containsKey(pokergame.getCards())) {
-                    // increment its loss value by 1
                     dummy.put(pokergame.getCards(), dummy.get(pokergame.getCards()) + 1);
                 } else {
-                    // if hand is new, add 1 to its loss count
                     dummy.put(pokergame.getCards(), 1);
                 }
             }

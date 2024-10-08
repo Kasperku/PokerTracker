@@ -50,7 +50,25 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        // stub
+        if (command.equals("add")) {
+            // add poker game to log
+        } else if (command.equals("viewLog")) {
+            // view game logs
+        } else if (command.equals("viewSummary")) {
+            // view statistical summary
+        } 
+        else if (command.equals("edit")) {
+            // edit pokergame from log
+        }
+        else if (command.equals("delete")) {
+            // delete pokergame from log
+        }
+        else if (command.equals("analyze")) {
+            // show hands with the most loss
+        }
+        else {
+            System.out.println("Selection not valid...");
+        }
     }
 
     // MODIFIES: this
