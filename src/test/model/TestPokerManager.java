@@ -53,20 +53,12 @@ public class TestPokerManager extends BaseTest {
 
         // represents the hand (J of Clubs, 2 of Diamonds)
         List<Card> jackOfClubsTwoOfDiamonds = new ArrayList<>();
-        threeOfSpadesSevenOfClubs.add(testCardJ);
-        threeOfSpadesSevenOfClubs.add(testCard2);
+        jackOfClubsTwoOfDiamonds.add(testCardJ);
+        jackOfClubsTwoOfDiamonds.add(testCard2);
 
-        // represents the hand that lost 3 times
-        List<List<Card>> lost3Times = new ArrayList<>();
-        lost3Times.add(threeOfSpadesSevenOfClubs);
-
-        // represents the hand that lost once
-        List<List<Card>> lost1Times = new ArrayList<>();
-        lost3Times.add(jackOfClubsTwoOfDiamonds);
-
-        Map<Integer, List<List<Card>>> expectedLosingHands = new HashMap<>();
-        expectedLosingHands.put(3, lost3Times);
-        expectedLosingHands.put(1, lost1Times);
+        Map<Integer, List<Card>> expectedLosingHands = new HashMap<>();
+        expectedLosingHands.put(3, threeOfSpadesSevenOfClubs);
+        expectedLosingHands.put(1, jackOfClubsTwoOfDiamonds);
 
         Map<Integer, List<Card>> actualLostHands = pokerManager.analyzeLosingHands(testMultipleLosses);
         assertEquals(expectedLosingHands, actualLostHands);
