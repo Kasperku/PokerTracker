@@ -26,6 +26,12 @@ public class TestPokerManager extends BaseTest {
         testPokerGames.add(testPokerGame2); // loss -200
         testPokerGames.add(testPokerGame3); // win +200
         testPokerGames.add(testPokerGame4); // loss -1000
+
+        testMultipleLosses = new ArrayList<>();
+        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
+        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
+        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
+        testMultipleLosses.add(testPokerGame4); // J of Clubs, 2 of Diamonds
     }
 
     @Test
@@ -40,11 +46,6 @@ public class TestPokerManager extends BaseTest {
 
     @Test
     void testAnalyzeLosingHands() {
-        testMultipleLosses = new ArrayList<>();
-        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
-        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
-        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
-        testMultipleLosses.add(testPokerGame4); // J of Clubs, 2 of Diamonds
 
         // represents the hand (3 of Spades, 7 of Clubs)
         List<Card> threeOfSpadesSevenOfClubs = new ArrayList<>();
@@ -60,6 +61,7 @@ public class TestPokerManager extends BaseTest {
         expectedLosingHands.put(3, threeOfSpadesSevenOfClubs);
         expectedLosingHands.put(1, jackOfClubsTwoOfDiamonds);
 
+        testMultipleLosses.add(testPokerGame1); 
         Map<Integer, List<Card>> actualLostHands = pokerManager.analyzeLosingHands(testMultipleLosses);
         assertEquals(expectedLosingHands, actualLostHands);
     }
