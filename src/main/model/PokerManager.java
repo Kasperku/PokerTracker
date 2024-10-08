@@ -39,14 +39,19 @@ public class PokerManager {
     }
 
     // EFFECTS: sort List<PokerGame> by amount won, largest win on top
-    public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames){
-        // stub
-        return null;
+    public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames) {
+        for (int i = 0; i < pokergames.size() - 1; i++) {
+            // bubble sort
+        }
+    
+        return pokergames;
     }
 
     // EFFECTS: sort List<PokerGame> by win/loss, won games on top
     public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames){
-        // stub
-        return null;
+        for (int i = 0; i < pokergames.size() - 1; i++) {
+            // bubble sort
+        }
+        return pokergames;
     }
 }
