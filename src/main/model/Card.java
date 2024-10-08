@@ -16,4 +16,26 @@ public class Card {
      public Card() {
         //stub
     }
+
+    public String getRank(){
+        //stub
+        return "";
+    }
+
+    public String getSuit(){
+        //stub
+        return "";
+    }
+
+    public void SetRank(String rank){
+        //stub
+    }
+
+    public void SetSuit(String suit){
+        //stub
+    }
+
+    
 }
+
+
