@@ -56,7 +56,7 @@ public class TestPokerGame extends BaseTest {
         assertEquals(1000, testPokerGame1.getAmount());
 
         testPokerGame4.setAmount(-300);
-        assertEquals(-300, testPokerGame1.getAmount());
+        assertEquals(-300, testPokerGame4.getAmount());
     }
 
     @Test
