@@ -34,7 +34,13 @@ public class PokerManager {
 
     // EFFECTS: analyze which hand lead to most losses 
     public Map<Integer, List<Card>> analyzeLosingHands(List<PokerGame> pokergames){
-        // stubb
+        for (PokerGame pokergame: pokergames){
+            if (!pokergame.getHasWon()){
+                // get the hand
+                // if hand has been seen before, add 1 to the loss count
+                // if hand is new, add 1 to its loss count
+                }
+        }
         return null;
     }
 
