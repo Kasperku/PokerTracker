@@ -21,22 +21,22 @@ public class TestCard extends BaseTest {
 
     @Test
     void testSetRank() {
-        testCardA.SetRank("3");
+        testCardA.setRank("3");
         assertEquals("3", testCardA.getRank());
 
-        testCardA.SetRank("7");
+        testCardA.setRank("7");
         assertEquals("7", testCardA.getRank());
     }
 
     @Test
     void testSetSuit() {
-        testCardA.SetSuit("Spades");
+        testCardA.setSuit("Spades");
         assertEquals("Spades", testCardA.getSuit());  
 
-        testCardA.SetSuit("Diamonds");
+        testCardA.setSuit("Diamonds");
         assertEquals("Diamonds", testCardA.getSuit());  
 
-        testCardA.SetSuit("Diamonds");
+        testCardA.setSuit("Diamonds");
         assertEquals("Diamonds", testCardA.getSuit()); 
     }
 }

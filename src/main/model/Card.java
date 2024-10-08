@@ -14,28 +14,25 @@ public class Card {
      */
 
      public Card(String rank, String suit) {
-        //stub
+        this.rank = rank;
+        this.suit = suit;
     }
 
     public String getRank(){
-        //stub
-        return "";
+        return this.rank;
     }
 
     public String getSuit(){
-        //stub
-        return "";
+        return this.suit;
     }
 
-    public void SetRank(String rank){
-        //stub
+    public void setRank(String rank){
+        this.rank = rank;
     }
 
-    public void SetSuit(String suit){
-        //stub
+    public void setSuit(String suit){
+        this.suit = suit;
     }
-
-
 }
 
 
