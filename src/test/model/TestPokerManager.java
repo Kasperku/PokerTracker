@@ -1,24 +1,23 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-public class TestPokerManager extends BaseTest{
+public class TestPokerManager extends BaseTest {
 
     private PokerManager pokerManager;
     private List<PokerGame> testPokerGames;
     private List<PokerGame> testMultipleLosses;
 
     @BeforeEach
-    void runBefore(){
+    void runBefore() {
         pokerManager = new PokerManager();
         initializedPokerGame();
 
@@ -30,24 +29,56 @@ public class TestPokerManager extends BaseTest{
     }
 
     @Test
-    void testCalculateWinRate(){
+    void testCalculateWinRate() {
         assertEquals(50, pokerManager.calculateWinRate(testPokerGames));
     }
 
     @Test
-    void testCalculateWinnings(){
+    void testCalculateWinnings() {
         assertEquals(2000, pokerManager.calculateWinnings(testPokerGames));
     }
 
     @Test
-    void testSortByAmountWon(){
+    void testAnalyzeLosingHands() {
+        testMultipleLosses = new ArrayList<>();
+        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
+        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
+        testMultipleLosses.add(testPokerGame2); // 3 of Spades, 7 of Clubs
+        testMultipleLosses.add(testPokerGame4); // J of Clubs, 2 of Diamonds
+
+        // represents the hand (3 of Spades, 7 of Clubs)
+        List<Card> threeOfSpadesSevenOfClubs = new ArrayList<>();
+        threeOfSpadesSevenOfClubs.add(testCard3);
+        threeOfSpadesSevenOfClubs.add(testCard7);
+
+        // represents the hand (J of Clubs, 2 of Diamonds)
+        List<Card> jackOfClubsTwoOfDiamonds = new ArrayList<>();
+        threeOfSpadesSevenOfClubs.add(testCardJ);
+        threeOfSpadesSevenOfClubs.add(testCard2);
+
+        // represents the hand that lost 3 times
+        List<List<Card>> lost3Times = new ArrayList<>();
+        lost3Times.add(threeOfSpadesSevenOfClubs);
+
+        // represents the hand that lost once
+        List<List<Card>> lost1Times = new ArrayList<>();
+        lost3Times.add(jackOfClubsTwoOfDiamonds);
+
+        Map<Integer, List<List<Card>>> expectedLosingHands = new HashMap<>();
+        expectedLosingHands.put(3, lost3Times);
+        expectedLosingHands.put(1, lost1Times);
+
+        Map<Integer, List<Card>> actualLostHands = pokerManager.analyzeLosingHands(testMultipleLosses);
+        assertEquals(expectedLosingHands, actualLostHands);
+    }
+
+    @Test
+    void testSortByAmountWon() {
         List<PokerGame> pokerGamesSortedByAmountWon = pokerManager.sortByAmountWon(testPokerGames);
         assertEquals(testPokerGame1, pokerGamesSortedByAmountWon.get(0)); // +3000
         assertEquals(testPokerGame3, pokerGamesSortedByAmountWon.get(1)); // +200
         assertEquals(testPokerGame2, pokerGamesSortedByAmountWon.get(2)); // -200
         assertEquals(testPokerGame4, pokerGamesSortedByAmountWon.get(3)); // -1000
-
-
     }
 
     @Test
