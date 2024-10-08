@@ -19,7 +19,7 @@ public class PokerManager {
     }
 
     // EFFECTS: analyze which hand lead to most losses 
-    public Map<List<Card>, Integer> analyzeLosingHands(List<PokerGame> pokergames){
+    public Map<Integer, List<Card>> analyzeLosingHands(List<PokerGame> pokergames){
         // stubb
         return null;
     }
