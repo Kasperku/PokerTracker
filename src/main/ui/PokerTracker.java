@@ -17,9 +17,22 @@ public class PokerTracker {
 
     // MODIFIES: this
     // EFFECTS: process user input
-
     private void runPokerTrackerInput() {
-        // stub
+        boolean applicationActive = true;
+        String command = null;
+        
+        while (applicationActive){
+            displayMenu();
+            command = input.next();
+            command = command.toLowerCase();
+
+            if (command.equals("quit")){
+                applicationActive = false;
+            }
+            else{
+                processCommand(command);
+            }
+        }
     }
 
     // EFFECTS: Display user menu
