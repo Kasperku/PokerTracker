@@ -11,25 +11,25 @@ public class PokerTracker {
     private Scanner input;
 
     // EFFECTS: run the PokerTracker application
-    public PokerTracker(){
+    public PokerTracker() {
         runPokerTrackerInput();
     }
 
     // MODIFIES: this
     // EFFECTS: process user input
 
-    private void runPokerTrackerInput(){
+    private void runPokerTrackerInput() {
         // stub
     }
-    
+
     // EFFECTS: Display user menu
-    private void displayMenu(){
+    private void displayMenu() {
         // stub
     }
 
     // MODIFIES: this
     // EFFECTS: processes user command
-    private void processCommand(String command){
+    private void processCommand(String command) {
         // stub
     }
 
@@ -39,47 +39,38 @@ public class PokerTracker {
         // stub
     }
 
-    
-
     // MODIFIES: this
     // EFFECTS: adds a pokerGame to gameHistory
-    private void addNewPokerGame(){
+    private void addNewPokerGame() {
         // stub
     }
 
-    // EFFECTS: Display a list of logged poker games 
-    private void viewPokerGames(){
+    // EFFECTS: Display a list of logged poker games
+    private void viewPokerGames() {
         // stub
     }
 
     // EFFECTS: Display game statistics
-    private void checkStatsSummary(){
+    private void checkStatsSummary() {
         // stub
     }
 
-
-
     // MODIFIES: this
     // EFFECTS: Edit an existing poker game
-    private void editPokerGame(){
+    private void editPokerGame() {
         // stub
     }
 
     // MODIFIES: this
     // EFFECTS: Delete an existing poker game
-    private void delPokerGame(){
+    private void delPokerGame() {
         // stub
     }
-
-
 
     // MODIFIES: this
     // EFFECTS: sort the games in gameHistory by given criteria
-    private void sortGames(String crit){
+    private void sortGames(String crit) {
         // stub
     }
-
-
-
 
 }
