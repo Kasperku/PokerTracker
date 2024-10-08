@@ -40,8 +40,17 @@ public class TestPokerManager extends BaseTest{
     void testSortByAmountWon(){
         List<PokerGame> pokerGamesSortedByAmountWon = pokerManager.sortByAmountWon(testPokerGames);
 
-        assertEquals(testPokerGame1, pokerGamesSortedByAmountWon.get(0)); // won
-        assertEquals(testPokerGame3, pokerGamesSortedByAmountWon.get(1)); // won
-        assertEquals(testPokerGame2, pokerGamesSortedByAmountWon.get(2)); // loss
+        assertEquals(testPokerGame1, pokerGamesSortedByAmountWon.get(0)); // +3000
+        assertEquals(testPokerGame3, pokerGamesSortedByAmountWon.get(1)); // +200
+        assertEquals(testPokerGame2, pokerGamesSortedByAmountWon.get(2)); // -200
+    }
+
+    @Test
+    void testSortByWinLoss() {
+        List<PokerGame> pokerGamesSortedByWinLoss = pokerManager.sortByWinLoss(testPokerGames);
+
+        assertEquals(testPokerGame1, pokerGamesSortedByWinLoss.get(1)); // win
+        assertEquals(testPokerGame3, pokerGamesSortedByWinLoss.get(2)); // win
+        assertEquals(testPokerGame2, pokerGamesSortedByWinLoss.get(0)); // loss
     }
 }
