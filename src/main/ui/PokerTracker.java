@@ -37,7 +37,14 @@ public class PokerTracker {
 
     // EFFECTS: Display user menu
     private void displayMenu() {
-        // stub
+        System.out.println("\nSelect from:");
+        System.out.println("\tadd -> add your poker games to log!");
+        System.out.println("\tviewLog -> view your poker games!");
+        System.out.println("\tviewSummary -> view a statistical summary of all your games!");
+        System.out.println("\tedit -> edit a logged game record");
+        System.out.println("\tdelete -> delete a game record");
+        System.out.println("\tanalyze -> view the hands you lose with the most!");
+        System.out.println("\tq -> quit");
     }
 
     // MODIFIES: this
