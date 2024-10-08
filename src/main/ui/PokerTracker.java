@@ -16,8 +16,20 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: process user input
 
-    public void runPokerTrackerInput(){
+    private void runPokerTrackerInput(){
         // stub
     }
+    
+    // EFFECTS: Display user menu
+    private void displayMenu(){
+        // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes user command
+    private void processCommand(String command){
+        // stub
+    }
+
     
 }
