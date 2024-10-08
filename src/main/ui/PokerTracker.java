@@ -70,7 +70,7 @@ public class PokerTracker {
             delPokerGame();
         }
         else if (command.equals("analyze")) {
-            // stub
+            handsWithMostLosses();
         }
         else if (command.equals("sortByAmountWon")) {
             sortGamesByAmountWon();
@@ -116,6 +116,12 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: Delete an existing poker game
     private void delPokerGame() {
+        // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Display hands with the most losses
+    private void handsWithMostLosses() {
         // stub
     }
 
