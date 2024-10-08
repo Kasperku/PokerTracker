@@ -1,6 +1,8 @@
 package ui;
 
 import model.PokerGame;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,6 +22,8 @@ public class PokerTracker {
     private void runPokerTrackerInput() {
         boolean applicationActive = true;
         String command = null;
+
+        init();
         
         while (applicationActive){
             displayMenu();
@@ -44,7 +48,7 @@ public class PokerTracker {
         System.out.println("\tedit -> edit a logged game record");
         System.out.println("\tdelete -> delete a game record");
         System.out.println("\tanalyze -> view the hands you lose with the most!");
-        System.out.println("\tq -> quit");
+        System.out.println("\tquit -> quit");
     }
 
     // MODIFIES: this
@@ -74,7 +78,9 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: initializes gameHistory
     private void init() {
-        // stub
+        gameHistory = new ArrayList<>();
+        input = new Scanner(System.in);
+        input.useDelimiter("\r?\n|\r");
     }
 
     // MODIFIES: this
