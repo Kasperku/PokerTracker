@@ -20,6 +20,7 @@ public abstract class BaseTest {
     protected PokerGame testPokerGame1;
     protected PokerGame testPokerGame2;
     protected PokerGame testPokerGame3;
+    protected PokerGame testPokerGame4;
 
     protected void initializedPokerGame(){
         testCardA = new Card("A", "Hearts");
@@ -43,5 +44,6 @@ public abstract class BaseTest {
         testPokerGame1 = new PokerGame(true, 3000, testCards1);
         testPokerGame2 = new PokerGame(false, -200, testCards2);
         testPokerGame3 = new PokerGame(true, 200, testCards3);
+        testPokerGame4 = new PokerGame(false, -1000, testCards3);
     }
 }
