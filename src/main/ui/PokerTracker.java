@@ -48,6 +48,8 @@ public class PokerTracker {
         System.out.println("\tedit -> edit a logged game record");
         System.out.println("\tdelete -> delete a game record");
         System.out.println("\tanalyze -> view the hands you lose with the most!");
+        System.out.println("\tsortByAmountWon -> view a log of pokergames by AmountWon");
+        System.out.println("\tsortByWinLoss -> view a log of pokergames by AmountWon");
         System.out.println("\tquit -> quit");
     }
 
@@ -55,20 +57,26 @@ public class PokerTracker {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("add")) {
-            // add poker game to log
+            addNewPokerGame();
         } else if (command.equals("viewLog")) {
-            // view game logs
+            viewPokerGames();
         } else if (command.equals("viewSummary")) {
-            // view statistical summary
+            checkStatsSummary();
         } 
         else if (command.equals("edit")) {
-            // edit pokergame from log
+            editPokerGame();
         }
         else if (command.equals("delete")) {
-            // delete pokergame from log
+            delPokerGame();
         }
         else if (command.equals("analyze")) {
-            // show hands with the most loss
+            // stub
+        }
+        else if (command.equals("sortByAmountWon")) {
+            sortGamesByAmountWon();
+        }
+        else if (command.equals("sortByWinLoss")) {
+            sortGamesByWinLoss();
         }
         else {
             System.out.println("Selection not valid...");
@@ -112,8 +120,14 @@ public class PokerTracker {
     }
 
     // MODIFIES: this
-    // EFFECTS: sort the games in gameHistory by given criteria
-    private void sortGames(String crit) {
+    // EFFECTS: display sorted games by amount won
+    private void sortGamesByAmountWon() {
+        // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: display sorted games by amount won
+    private void sortGamesByWinLoss() {
         // stub
     }
 
