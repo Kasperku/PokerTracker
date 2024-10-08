@@ -15,7 +15,7 @@ public class PokerGame {
      * EFFECTS: new PokerGame with outcome, amount won, and cards held.
      */
 
-    public PokerGame() {
+    public PokerGame(boolean haswon, int amount, List<Card> cards) {
         //stub
     }
 

@@ -13,7 +13,7 @@ public class Card {
      * EFFECTS: new card with rank and suit
      */
 
-     public Card() {
+     public Card(String rank, String suit) {
         //stub
     }
 
@@ -35,7 +35,7 @@ public class Card {
         //stub
     }
 
-    
+
 }
 
 
