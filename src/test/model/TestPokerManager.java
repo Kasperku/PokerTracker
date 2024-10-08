@@ -13,11 +13,17 @@ import org.junit.jupiter.api.Test;
 public class TestPokerManager extends BaseTest{
 
     private PokerManager pokerManager;
+    private List<PokerGame> testPokerGames;
 
     @BeforeEach
     void runBefore(){
         pokerManager = new PokerManager();
         initializedPokerGame();
+
+        testPokerGames = new ArrayList<>();
+        testPokerGames.add(testPokerGame1);
+        testPokerGames.add(testPokerGame2);
+        testPokerGames.add(testPokerGame3);
     }
 
     @Test
@@ -28,5 +34,14 @@ public class TestPokerManager extends BaseTest{
     @Test
     void testCalculateWinnings(){
         assertEquals(2800, pokerManager.calculateWinnings(testPokerGames));
+    }
+
+    @Test
+    void testSortByAmountWon(){
+        List<PokerGame> pokerGamesSortedByAmountWon = pokerManager.sortByAmountWon(testPokerGames);
+
+        assertEquals(testPokerGame1, pokerGamesSortedByAmountWon.get(0)); // won
+        assertEquals(testPokerGame3, pokerGamesSortedByAmountWon.get(1)); // won
+        assertEquals(testPokerGame2, pokerGamesSortedByAmountWon.get(2)); // loss
     }
 }
