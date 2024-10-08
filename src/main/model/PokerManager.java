@@ -2,75 +2,83 @@ package model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 // represents a PokerManager for calculating statistics and sorting of games played
 public class PokerManager {
-    
+
     // EFFECTS: returns winrate
-    public int calculateWinRate(List<PokerGame> pokergames){
+    public int calculateWinRate(List<PokerGame> pokergames) {
         double numWins = 0;
         int numLoss = 0;
 
-        for (PokerGame pokergame:pokergames){
-            if (pokergame.getHasWon()){
+        for (PokerGame pokergame : pokergames) {
+            if (pokergame.getHasWon()) {
                 numWins += 1;
-            }
-            else{numLoss += 1;
+            } else {
+                numLoss += 1;
             }
         }
 
         return (int) ((numWins / (numLoss + numWins)) * 100);
     }
 
-    // EFFECTS: returns total winnings, - if loss 
-    public int calculateWinnings(List<PokerGame> pokergames){
+    // EFFECTS: returns total winnings, - if loss
+    public int calculateWinnings(List<PokerGame> pokergames) {
         int winnings = 0;
 
-        for (PokerGame pokergame:pokergames){
+        for (PokerGame pokergame : pokergames) {
             winnings = winnings + pokergame.getAmount();
         }
         return winnings;
     }
 
-    // EFFECTS: analyze which hand lead to most losses 
-    public Map<Integer, List<Card>> analyzeLosingHands(List<PokerGame> pokergames){
-        for (PokerGame pokergame: pokergames){
-            if (!pokergame.getHasWon()){
-                // get the hand
-                // if hand has been seen before, add 1 to the loss count
-                // if hand is new, add 1 to its loss count
+    // EFFECTS: analyze which hand lead to most losses
+    public Map<Integer, List<Card>> analyzeLosingHands(List<PokerGame> pokergames) {
+        Map<List<Card>, Integer> lostHands = new HashMap<>();
+
+        for (PokerGame pokergame : pokergames) {
+            if (!pokergame.getHasWon()) {
+                // if hand already in hashmap
+                if (lostHands.containsKey(pokergame.getCards())) {
+                    // increment its loss value by 1
+                } else {
+                    // if hand is new, add 1 to its loss count
                 }
+            }
         }
+
+        // reverse the map so it stores integer as key, hands as value
         return null;
     }
 
     // EFFECTS: sort List<PokerGame> by amount won, largest win on top
     public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames) {
         for (int i = 0; i < pokergames.size() - 1; i++) {
-            for (int j = 0; j < pokergames.size() - i - 1; j++){
-                if (pokergames.get(j).getAmount() < pokergames.get(j+1).getAmount()){
+            for (int j = 0; j < pokergames.size() - i - 1; j++) {
+                if (pokergames.get(j).getAmount() < pokergames.get(j + 1).getAmount()) {
                     PokerGame dummy = pokergames.get(j);
-                    pokergames.set(j, pokergames.get(j+1));
-                    pokergames.set(j+1, dummy);
+                    pokergames.set(j, pokergames.get(j + 1));
+                    pokergames.set(j + 1, dummy);
                 }
             }
         }
-    
+
         return pokergames;
     }
 
     // EFFECTS: sort List<PokerGame> by win/loss, won games on top
-    public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames){
+    public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames) {
         for (int i = 0; i < pokergames.size() - 1; i++) {
-            for (int j = 0; j < pokergames.size() - i - 1; j++){
-                if (!pokergames.get(j).getHasWon() && pokergames.get(j+1).getHasWon()){
+            for (int j = 0; j < pokergames.size() - i - 1; j++) {
+                if (!pokergames.get(j).getHasWon() && pokergames.get(j + 1).getHasWon()) {
                     PokerGame dummy = pokergames.get(j);
-                    pokergames.set(j, pokergames.get(j+1));
-                    pokergames.set(j+1, dummy);
+                    pokergames.set(j, pokergames.get(j + 1));
+                    pokergames.set(j + 1, dummy);
                 }
             }
         }
-    
+
         return pokergames;
     }
 }
