@@ -8,14 +8,28 @@ public class PokerManager {
     
     // EFFECTS: returns winrate
     public int calculateWinRate(List<PokerGame> pokergames){
-        // stub
-        return 0;
+        double numWins = 0;
+        int numLoss = 0;
+
+        for (PokerGame pokergame:pokergames){
+            if (pokergame.getHasWon()){
+                numWins += 1;
+            }
+            else{numLoss += 1;
+            }
+        }
+
+        return (int) ((numWins / (numLoss + numWins)) * 100);
     }
 
     // EFFECTS: returns total winnings, - if loss 
     public int calculateWinnings(List<PokerGame> pokergames){
-        // stub
-        return 0;
+        int winnings = 0;
+
+        for (PokerGame pokergame:pokergames){
+            winnings = winnings + pokergame.getAmount();
+        }
+        return winnings;
     }
 
     // EFFECTS: analyze which hand lead to most losses 
