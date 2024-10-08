@@ -20,7 +20,7 @@ public class PokerManager {
 
     // EFFECTS: analyze which hand lead to most losses 
     public Map<String, Integer> analyzeLosingHands(List<PokerGame> pokergames){
-        // stub
+        // stubb
         return null;
     }
 
