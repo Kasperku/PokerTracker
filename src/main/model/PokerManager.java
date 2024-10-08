@@ -41,7 +41,13 @@ public class PokerManager {
     // EFFECTS: sort List<PokerGame> by amount won, largest win on top
     public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames) {
         for (int i = 0; i < pokergames.size() - 1; i++) {
-            // bubble sort
+            for (int j = 0; j < pokergames.size() - i - 1; j++){
+                if (pokergames.get(j).getAmount() < pokergames.get(j+1).getAmount()){
+                    PokerGame dummy = pokergames.get(j);
+                    pokergames.set(j, pokergames.get(j+1));
+                    pokergames.set(j+1, dummy);
+                }
+            }
         }
     
         return pokergames;
