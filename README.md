@@ -32,4 +32,4 @@ Features:
 
 - As a user, I want to be able to edit or delete a game record after I’ve logged it.
 
-- As a user, I want to be able to sort the logged games by date, amount won/lost, or outcome, so I can better analyze my performance.
+- As a user, I want to be able to sort the logged games by amount won/lost, or outcome, so I can better analyze my performance.
