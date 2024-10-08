@@ -22,9 +22,9 @@ Features:
 
 ## User Stories
 
-- As a user, I want to be able to log a poker game, including the outcome, amount won or lost, and the cards I held.
+- As a user, I want to be able to log multiple poker games into my poker tracker, including the outcome, amount won or lost, and the cards I held.
 
-- As a user, I want to be able to view a list of all the poker games I have logged, showing the outcome, amount won or lost, and the cards I held.
+- As a user, I want to be able to view a list of all the poker games I have logged in my poker tracker, showing the outcome, amount won or lost, and the cards I held.
 
 - As a user, I want to see a summary of my total wins, losses, and the total amount of money I have won or lost over time.
 
