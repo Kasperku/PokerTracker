@@ -1,5 +1,6 @@
 package model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -27,7 +28,11 @@ public class TestPokerGame {
     }
 
     @Test
-    void sampleTest() {
-        assertTrue(true);
+    void testConstructor() {
+        assertEquals(testPokerGame.getHasWon(), true);
+        assertEquals(testPokerGame.getAmount(), 3000);
+        assertEquals(testPokerGame.getCards(), testCards);
     }
+
+    
 }
