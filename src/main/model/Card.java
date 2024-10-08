@@ -6,10 +6,11 @@ public class Card {
 
     private String rank;
     private String suit;
-    
+
     /*
-     * REQUIRES: cards must be of length 2, card cannot be duplicate
-     * EFFECTS: new PokerGame with outcome, amount won, and cards held.
+     * REQUIRES: rank is one of "A", "2", "3", "4", ... "10", "J", "Q", "K"
+     *           suit is one of "Spades", "Clubs", "Diamond", "Hearts"
+     * EFFECTS: new card with rank and suit
      */
 
      public Card() {
