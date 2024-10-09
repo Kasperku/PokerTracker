@@ -52,13 +52,19 @@ public class TestPokerManager extends BaseTest {
         threeOfSpadesSevenOfClubs.add(testCard3);
         threeOfSpadesSevenOfClubs.add(testCard7);
 
+        // represents the reverse hand (7 of Clubs, 3 of Spades)
+        List<Card> reverseThreeOfSpadesSevenOfClubs = new ArrayList<>();
+        reverseThreeOfSpadesSevenOfClubs.add(testCard7);
+        reverseThreeOfSpadesSevenOfClubs.add(testCard3);
+        testMultipleLosses.add(new PokerGame(false, -10, reverseThreeOfSpadesSevenOfClubs));
+
         // represents the hand (J of Clubs, 2 of Diamonds)
         List<Card> jackOfClubsTwoOfDiamonds = new ArrayList<>();
         jackOfClubsTwoOfDiamonds.add(testCardJ);
         jackOfClubsTwoOfDiamonds.add(testCard2);
 
         Map<List<Card>, Integer> expectedLosingHands = new HashMap<>();
-        expectedLosingHands.put(threeOfSpadesSevenOfClubs, 3);
+        expectedLosingHands.put(threeOfSpadesSevenOfClubs, 4);
         expectedLosingHands.put(jackOfClubsTwoOfDiamonds, 1);
 
         testMultipleLosses.add(testPokerGame1);
