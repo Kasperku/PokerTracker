@@ -34,22 +34,17 @@ public class PokerManager {
     }
 
     // EFFECTS: analyze which hand lead to most losses
-    public Map<Integer, List<Card>> analyzeLosingHands(List<PokerGame> pokergames) {
-        Map<List<Card>, Integer> dummy = new HashMap<>();
+    public Map<List<Card>, Integer> analyzeLosingHands(List<PokerGame> pokergames) {
+        Map<List<Card>, Integer> lostHands = new HashMap<>();
 
         for (PokerGame pokergame : pokergames) {
             if (!pokergame.getHasWon()) {
-                if (dummy.containsKey(pokergame.getCards())) {
-                    dummy.put(pokergame.getCards(), dummy.get(pokergame.getCards()) + 1);
+                if (lostHands.containsKey(pokergame.getCards())) {
+                    lostHands.put(pokergame.getCards(), lostHands.get(pokergame.getCards()) + 1);
                 } else {
-                    dummy.put(pokergame.getCards(), 1);
+                    lostHands.put(pokergame.getCards(), 1);
                 }
             }
-        }
-        // reverse the map so it stores integer as key, hands as value
-        Map<Integer, List<Card>> lostHands = new HashMap<>();
-        for (Map.Entry<List<Card>, Integer> entry : dummy.entrySet()) {
-            lostHands.put(entry.getValue(), entry.getKey());
         }
         return lostHands;
     }
@@ -65,7 +60,6 @@ public class PokerManager {
                 }
             }
         }
-
         return pokergames;
     }
 
