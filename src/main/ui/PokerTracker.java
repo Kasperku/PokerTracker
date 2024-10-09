@@ -142,7 +142,36 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: Edit an existing poker game
     private void editPokerGame() {
-        // stub
+        viewPokerGames();
+
+        System.out.println("Which game do you want to edit? (Enter the game number)");
+        int gameNumber = input.nextInt();
+
+        if (gameNumber <=0 || gameHistory.size() < gameNumber){
+            System.out.println("Invalid game number...");
+        }
+        else{
+            PokerGame pokergame = gameHistory.get(gameNumber - 1);
+
+            System.out.println("Win? (true/false)");
+            boolean newHasWon = input.nextBoolean();
+
+            System.out.println("Enter new amount won(+) or lost(-): ");
+            int newAmount = input.nextInt();
+            
+            List<Card> newHand = new ArrayList<>();
+            for (int i = 0; i < 2; i++){
+                System.out.println("Enter the new rank of your card (A,2,3,...,J,Q,K)");
+                String rank = input.next();
+                System.out.println("Enter the new suit of your card (Spades, Clubs, Hearts, Diamonds)");
+                String suit = input.next();
+                newHand.add(new Card(rank, suit));
+            }
+            pokergame.setCards((newHand));
+            pokergame.setAmount(newAmount);
+            pokergame.setHasWon(newHasWon);
+            System.out.println("Game " + gameNumber + " has been successfully updated");
+        }
     }
 
     // MODIFIES: this
