@@ -205,10 +205,10 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: Display hands with the most losses
     private void handsWithMostLosses() {
-        Map<Integer, List<Card>> lostHands = pokerManager.analyzeLosingHands(gameHistory); 
-        for (Map.Entry<Integer, List<Card>> entry : lostHands.entrySet()){
-            int numLoss = entry.getKey();
-            List<Card> hand = entry.getValue();
+        Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory); 
+        for (Map.Entry<List<Card>, Integer> entry : lostHands.entrySet()){
+            int numLoss = entry.getValue();
+            List<Card> hand = entry.getKey();
 
             System.err.println("# of times loss with " + hand.get(0).getRank() + " of " + 
             hand.get(0).getSuit() + "," + hand.get(1).getRank() + " of " + 
