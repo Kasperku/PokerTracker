@@ -28,16 +28,15 @@ public class PokerTracker {
         String command = null;
 
         init();
-        
-        while (applicationActive){
+
+        while (applicationActive) {
             displayMenu();
             command = input.next();
             command = command.toLowerCase();
 
-            if (command.equals("quit")){
+            if (command.equals("quit")) {
                 applicationActive = false;
-            }
-            else{
+            } else {
                 processCommand(command);
             }
         }
@@ -66,23 +65,17 @@ public class PokerTracker {
             viewPokerGames();
         } else if (command.equals("viewsummary")) {
             checkStatsSummary();
-        } 
-        else if (command.equals("edit")) {
+        } else if (command.equals("edit")) {
             editPokerGame();
-        }
-        else if (command.equals("delete")) {
+        } else if (command.equals("delete")) {
             delPokerGame();
-        }
-        else if (command.equals("analyze")) {
+        } else if (command.equals("analyze")) {
             handsWithMostLosses();
-        }
-        else if (command.equals("sortbyamountwon")) {
+        } else if (command.equals("sortbyamountwon")) {
             sortGamesByAmountWon();
-        }
-        else if (command.equals("sortbywinloss")) {
+        } else if (command.equals("sortbywinloss")) {
             sortGamesByWinLoss();
-        }
-        else {
+        } else {
             System.out.println("Selection not valid...");
         }
     }
@@ -106,16 +99,7 @@ public class PokerTracker {
         System.err.println("Enter amt won(+) or loss(-)");
         int amount = input.nextInt();
 
-        List<Card> hand = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++){
-            System.out.println("Enter the rank of your card (A,2,3,...,J,Q,K)");
-            String rank = input.next();
-            System.out.println("Enter the suit of your card (Spades, Clubs, Hearts, Diamonds)");
-            String suit = input.next();
-
-            hand.add(new Card(rank, suit));
-        }
+        List<Card> hand = cardInput();
 
         PokerGame pokerGame = new PokerGame(hasWon, amount, hand);
         gameHistory.add(pokerGame);
@@ -124,7 +108,7 @@ public class PokerTracker {
     // EFFECTS: Display a list of logged poker games
     private void viewPokerGames() {
         int counter = 1;
-        for (PokerGame pokergame: gameHistory){
+        for (PokerGame pokergame : gameHistory) {
             boolean hasWon = pokergame.getHasWon();
             int amount = pokergame.getAmount();
             List<Card> hand = pokergame.getCards();
@@ -132,8 +116,8 @@ public class PokerTracker {
             System.out.println("Game " + counter);
             System.out.println("\tWin?: " + hasWon);
             System.out.println("\tAmount Won: " + amount);
-            System.out.println("\tCards Held: " + hand.get(0).getRank() + " of " + hand.get(0).getSuit() 
-            + ", " + hand.get(1).getRank() + " of " + hand.get(1).getSuit());
+            System.out.println("\tCards Held: " + hand.get(0).getRank() + " of " + hand.get(0).getSuit()
+                    + ", " + hand.get(1).getRank() + " of " + hand.get(1).getSuit());
 
             counter += 1;
         }
@@ -158,10 +142,9 @@ public class PokerTracker {
         System.out.println("Which game do you want to edit? (Enter the game number)");
         int gameNumber = input.nextInt();
 
-        if (gameNumber <=0 || gameHistory.size() < gameNumber){
+        if (gameNumber <= 0 || gameHistory.size() < gameNumber) {
             System.out.println("Invalid game number...");
-        }
-        else{
+        } else {
             PokerGame pokergame = gameHistory.get(gameNumber - 1);
 
             System.out.println("Win? (true/false)");
@@ -169,15 +152,9 @@ public class PokerTracker {
 
             System.out.println("Enter new amount won(+) or lost(-): ");
             int newAmount = input.nextInt();
-            
-            List<Card> newHand = new ArrayList<>();
-            for (int i = 0; i < 2; i++){
-                System.out.println("Enter the new rank of your card (A,2,3,...,J,Q,K)");
-                String rank = input.next();
-                System.out.println("Enter the new suit of your card (Spades, Clubs, Hearts, Diamonds)");
-                String suit = input.next();
-                newHand.add(new Card(rank, suit));
-            }
+
+            List<Card> newHand = cardInput();
+
             pokergame.setCards((newHand));
             pokergame.setAmount(newAmount);
             pokergame.setHasWon(newHasWon);
@@ -193,10 +170,9 @@ public class PokerTracker {
         System.out.println("Which game do you want to delete? (Enter the game number)");
         int gameNumber = input.nextInt();
 
-        if (gameNumber <=0 || gameHistory.size() < gameNumber){
+        if (gameNumber <= 0 || gameHistory.size() < gameNumber) {
             System.out.println("Invalid game number...");
-        }
-        else{
+        } else {
             gameHistory.remove(gameNumber - 1);
             System.err.println("Game " + gameNumber + " has been sucessfully deleted");
         }
@@ -205,14 +181,14 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: Display hands with the most losses
     private void handsWithMostLosses() {
-        Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory); 
-        for (Map.Entry<List<Card>, Integer> entry : lostHands.entrySet()){
+        Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory);
+        for (Map.Entry<List<Card>, Integer> entry : lostHands.entrySet()) {
             int numLoss = entry.getValue();
             List<Card> hand = entry.getKey();
 
-            System.err.println("# of times loss with " + hand.get(0).getRank() + " of " + 
-            hand.get(0).getSuit() + "," + hand.get(1).getRank() + " of " + 
-            hand.get(1).getSuit());
+            System.err.println("# of times loss with " + hand.get(0).getRank() + " of "
+                    + hand.get(0).getSuit() + "," + hand.get(1).getRank() + " of "
+                    + hand.get(1).getSuit());
             System.err.println("\t" + numLoss + "times");
         }
     }
@@ -229,5 +205,20 @@ public class PokerTracker {
     private void sortGamesByWinLoss() {
         gameHistory = pokerManager.sortByWinLoss(gameHistory);
         viewPokerGames();
+    }
+
+    // EFFECTS: return users hand after user input
+    private List<Card> cardInput() {
+        List<Card> hand = new ArrayList<>();
+
+        for (int i = 0; i < 2; i++) {
+            System.out.println("Enter the new rank of your card (A,2,3,...,J,Q,K)");
+            String rank = input.next();
+            System.out.println("Enter the new suit of your card (Spades, Clubs, Hearts, Diamonds)");
+            String suit = input.next();
+            hand.add(new Card(rank, suit));
+
+        }
+        return hand;
     }
 }
