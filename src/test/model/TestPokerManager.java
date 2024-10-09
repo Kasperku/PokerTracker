@@ -61,7 +61,7 @@ public class TestPokerManager extends BaseTest {
         expectedLosingHands.put(threeOfSpadesSevenOfClubs, 3);
         expectedLosingHands.put(jackOfClubsTwoOfDiamonds, 1);
 
-        testMultipleLosses.add(testPokerGame1); 
+        testMultipleLosses.add(testPokerGame1);
         Map<List<Card>, Integer> actualLostHands = pokerManager.analyzeLosingHands(testMultipleLosses);
         assertEquals(expectedLosingHands, actualLostHands);
     }

@@ -1,4 +1,5 @@
 package model;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -41,14 +42,14 @@ public class PokerManager {
         for (PokerGame pokergame : pokergames) {
             if (!pokergame.getHasWon()) {
                 List<Card> hand = pokergame.getCards();
-                List<Card> rHand = new ArrayList<>(hand); // the reversed of curr hand
-                Collections.reverse(rHand);
+                List<Card> reverseHand = new ArrayList<>(hand); // the reversed of curr hand
+                Collections.reverse(reverseHand);
 
                 if (lostHands.containsKey(hand)) {
                     lostHands.put(hand, lostHands.get(hand) + 1);
 
-                } else if (lostHands.containsKey(rHand)) { // rhand in key
-                    lostHands.put(rHand, lostHands.get(rHand) + 1);
+                } else if (lostHands.containsKey(reverseHand)) { // rhand in key
+                    lostHands.put(reverseHand, lostHands.get(reverseHand) + 1);
                 } else {
                     lostHands.put(hand, 1);
                 }

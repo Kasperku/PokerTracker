@@ -22,7 +22,7 @@ public abstract class BaseTest {
     protected PokerGame testPokerGame3;
     protected PokerGame testPokerGame4;
 
-    protected void initializedPokerGame(){
+    protected void initializedPokerGame() {
         testCardA = new Card("A", "Hearts");
         testCardK = new Card("K", "Diamonds");
         testCard3 = new Card("3", "Spades");
@@ -39,7 +39,6 @@ public abstract class BaseTest {
         testCards3 = new ArrayList<>();
         testCards3.add(testCardJ);
         testCards3.add(testCard2);
-
 
         testPokerGame1 = new PokerGame(true, 3000, testCards1);
         testPokerGame2 = new PokerGame(false, -200, testCards2);

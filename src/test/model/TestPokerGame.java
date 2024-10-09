@@ -21,28 +21,28 @@ public class TestPokerGame extends BaseTest {
         assertTrue(testPokerGame1.getHasWon());
         assertEquals(testPokerGame1.getAmount(), 3000);
         assertEquals(testPokerGame1.getCards(), testCards1);
-    } 
+    }
 
     @Test
-    void testGetHasWon(){
+    void testGetHasWon() {
         assertTrue(testPokerGame1.getHasWon());
         assertFalse(testPokerGame2.getHasWon());
     }
 
     @Test
-    void testGetAmount(){
+    void testGetAmount() {
         assertEquals(testPokerGame1.getAmount(), 3000);
         assertEquals(testPokerGame2.getAmount(), -200);
     }
 
     @Test
-    void testGetCards(){
+    void testGetCards() {
         assertEquals(testCards1, testPokerGame1.getCards());
         assertEquals(testCards2, testPokerGame2.getCards());
     }
 
     @Test
-    void testSetHasWon(){
+    void testSetHasWon() {
         testPokerGame1.setHasWon(false);
         assertFalse(testPokerGame1.getHasWon());
 
@@ -68,6 +68,5 @@ public class TestPokerGame extends BaseTest {
         testPokerGame2.setCards(testCards);
         assertEquals(testCards, testPokerGame2.getCards());
     }
-
 
 }

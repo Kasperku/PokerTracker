@@ -34,22 +34,22 @@ public class TestCard extends BaseTest {
     @Test
     void testSetSuit() {
         testCardA.setSuit("Spades");
-        assertEquals("Spades", testCardA.getSuit());  
+        assertEquals("Spades", testCardA.getSuit());
 
         testCardA.setSuit("Diamonds");
-        assertEquals("Diamonds", testCardA.getSuit());  
+        assertEquals("Diamonds", testCardA.getSuit());
 
         testCardA.setSuit("Diamonds");
-        assertEquals("Diamonds", testCardA.getSuit()); 
+        assertEquals("Diamonds", testCardA.getSuit());
     }
 
     @Test
-    void testEqualSameObject(){
+    void testEqualSameObject() {
         assertTrue(testCard2.equals(testCard2));
     }
 
     @Test
-    void testEqualSameCard(){
+    void testEqualSameCard() {
         testCard5 = new Card("2", "Diamonds");
         assertTrue(testCard2.equals(testCard5));
     }
@@ -67,7 +67,7 @@ public class TestCard extends BaseTest {
     @Test
     void testNotEqualDiffSuit() {
         Card cardAD = new Card("A", "Diamonds");
-        assertFalse(testCardA.equals(cardAD)); 
+        assertFalse(testCardA.equals(cardAD));
     }
 
     @Test
@@ -77,4 +77,3 @@ public class TestCard extends BaseTest {
     }
 
 }
-

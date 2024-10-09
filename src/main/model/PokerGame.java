@@ -21,27 +21,27 @@ public class PokerGame {
         this.cards = cards;
     }
 
-    public boolean getHasWon(){
+    public boolean getHasWon() {
         return this.haswon;
     }
 
-    public int getAmount(){
+    public int getAmount() {
         return this.amount;
     }
 
-    public List<Card> getCards(){
+    public List<Card> getCards() {
         return this.cards;
     }
 
-    public void setHasWon(boolean hasWon){
+    public void setHasWon(boolean hasWon) {
         this.haswon = hasWon;
     }
 
-    public void setAmount(int amount){
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
-    public void setCards(List<Card> cards){
+    public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 }
