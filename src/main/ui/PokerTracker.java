@@ -130,7 +130,7 @@ public class PokerTracker {
             List<Card> hand = pokergame.getCards();
 
             System.out.println("Game " + counter);
-            System.out.println("\tOutcome: " + hasWon);
+            System.out.println("\tWin?: " + hasWon);
             System.out.println("\tAmount Won: " + amount);
             System.out.println("\tCards Held: " + hand.get(0).getRank() + " of " + hand.get(0).getSuit() 
             + ", " + hand.get(1).getRank() + " of " + hand.get(1).getSuit());
@@ -220,13 +220,14 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: display sorted games by amount won
     private void sortGamesByAmountWon() {
-        // stub
+        gameHistory = pokerManager.sortByAmountWon(gameHistory);
+        viewPokerGames();
     }
 
     // MODIFIES: this
     // EFFECTS: display sorted games by amount won
     private void sortGamesByWinLoss() {
-        // stub
+        gameHistory = pokerManager.sortByWinLoss(gameHistory);
+        viewPokerGames();
     }
-
 }
