@@ -56,7 +56,7 @@ public class PokerManager {
         }
         return lostHands;
     }
-    // MODIFIES: TODO: modifies clause for sortByAmountWon
+    // MODIFIES: pokergames
     // EFFECTS: sort List<PokerGame> by amount won, largest win on top
     public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames) {
         for (int i = 0; i < pokergames.size() - 1; i++) {
@@ -70,7 +70,7 @@ public class PokerManager {
         }
         return pokergames;
     }
-    // MODIFIES: TODO: modifies clause for sortByWinLoss
+    // MODIFIES: pokergames
     // EFFECTS: sort List<PokerGame> by win/loss, won games on top
     public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames) {
         for (int i = 0; i < pokergames.size() - 1; i++) {
