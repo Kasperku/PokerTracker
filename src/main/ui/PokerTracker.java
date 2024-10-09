@@ -6,6 +6,7 @@ import model.PokerManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 // PokerTracker application
@@ -13,6 +14,7 @@ public class PokerTracker {
 
     private List<PokerGame> gameHistory;
     private Scanner input;
+    private PokerManager pokerManager;
 
     // EFFECTS: run the PokerTracker application
     public PokerTracker() {
@@ -91,6 +93,8 @@ public class PokerTracker {
         gameHistory = new ArrayList<>();
         input = new Scanner(System.in);
         input.useDelimiter("\r?\n|\r");
+
+        pokerManager = new PokerManager();
     }
 
     // MODIFIES: this
@@ -137,8 +141,6 @@ public class PokerTracker {
 
     // EFFECTS: Display game statistics
     private void checkStatsSummary() {
-        PokerManager pokerManager = new PokerManager();
-
         int totalGamesPlayed = gameHistory.size();
         int winRate = pokerManager.calculateWinRate(gameHistory);
         int totalWinnings = pokerManager.calculateWinnings(gameHistory);
@@ -203,7 +205,16 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: Display hands with the most losses
     private void handsWithMostLosses() {
-        // stub
+        Map<Integer, List<Card>> lostHands = pokerManager.analyzeLosingHands(gameHistory); 
+        for (Map.Entry<Integer, List<Card>> entry : lostHands.entrySet()){
+            int numLoss = entry.getKey();
+            List<Card> hand = entry.getValue();
+
+            System.err.println("# of times loss with " + hand.get(0).getRank() + " of " + 
+            hand.get(0).getSuit() + "," + hand.get(1).getRank() + " of " + 
+            hand.get(1).getSuit());
+            System.err.println("\t" + numLoss + "times");
+        }
     }
 
     // MODIFIES: this
