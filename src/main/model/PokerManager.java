@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-// represents a PokerManager for calculating statistics and sorting of games played
+// represents a PokerManager for calculating game statistics and sorting of games played
 public class PokerManager {
-
-    // EFFECTS: returns winrate
+    // REQUIRES: pokergames.size() > 0
+    // EFFECTS: returns winrate as a %
     public int calculateWinRate(List<PokerGame> pokergames) {
         double numWins = 0;
         int numLoss = 0;
@@ -24,7 +24,6 @@ public class PokerManager {
 
         return (int) ((numWins / (numLoss + numWins)) * 100);
     }
-
     // EFFECTS: returns total winnings, - if loss
     public int calculateWinnings(List<PokerGame> pokergames) {
         int winnings = 0;
@@ -48,7 +47,7 @@ public class PokerManager {
                 if (lostHands.containsKey(hand)) {
                     lostHands.put(hand, lostHands.get(hand) + 1);
 
-                } else if (lostHands.containsKey(reverseHand)) { // rhand in key
+                } else if (lostHands.containsKey(reverseHand)) { // reversed hand in key
                     lostHands.put(reverseHand, lostHands.get(reverseHand) + 1);
                 } else {
                     lostHands.put(hand, 1);
@@ -57,7 +56,7 @@ public class PokerManager {
         }
         return lostHands;
     }
-
+    // MODIFIES: TODO: modifies clause for sortByAmountWon
     // EFFECTS: sort List<PokerGame> by amount won, largest win on top
     public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames) {
         for (int i = 0; i < pokergames.size() - 1; i++) {
@@ -71,7 +70,7 @@ public class PokerManager {
         }
         return pokergames;
     }
-
+    // MODIFIES: TODO: modifies clause for sortByWinLoss
     // EFFECTS: sort List<PokerGame> by win/loss, won games on top
     public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames) {
         for (int i = 0; i < pokergames.size() - 1; i++) {

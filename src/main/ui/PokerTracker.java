@@ -22,7 +22,7 @@ public class PokerTracker {
     }
 
     // MODIFIES: this
-    // EFFECTS: process user input
+    // EFFECTS: process user input and runs the application until input == "quit"
     private void runPokerTrackerInput() {
         boolean applicationActive = true;
         String command = null;
@@ -105,7 +105,7 @@ public class PokerTracker {
         gameHistory.add(pokerGame);
     }
 
-    // EFFECTS: Display a list of logged poker games
+    // EFFECTS: Display a list of logged poker games with their stats
     private void viewPokerGames() {
         int counter = 1;
         for (PokerGame pokergame : gameHistory) {
@@ -135,7 +135,7 @@ public class PokerTracker {
     }
 
     // MODIFIES: this
-    // EFFECTS: Edit an existing poker game
+    // EFFECTS: Edit the log of an existing poker game
     private void editPokerGame() {
         viewPokerGames();
 
@@ -178,7 +178,6 @@ public class PokerTracker {
         }
     }
 
-    // MODIFIES: this
     // EFFECTS: Display hands with the most losses
     private void handsWithMostLosses() {
         Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory);

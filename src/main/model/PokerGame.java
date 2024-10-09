@@ -8,7 +8,7 @@ public class PokerGame {
 
     private boolean haswon; // true for win, false for lose
     private int amount; // + for amt won, - for loss
-    private List<Card> cards; // a list consisting of 2 cards
+    private List<Card> cards; // represents a hand, a list consisting of 2 cards
 
     /*
      * REQUIRES: cards must be of length 2, cards cannot contain duplicate cards
