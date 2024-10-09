@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Arrays;
 
 // PokerTracker application
 public class PokerTracker {
@@ -93,11 +94,17 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: adds a pokerGame to gameHistory
     private void addNewPokerGame() {
-        System.out.println("Win? (true/false)");
-        boolean hasWon = input.nextBoolean();
+        int amount;
+        boolean hasWon = winLossInput();
 
         System.err.println("Enter amt won(+) or loss(-)");
-        int amount = input.nextInt();
+        if (input.hasNextInt()) {
+            amount = input.nextInt();
+        } else {
+            System.err.println("Invalid input ...");
+            input.next();
+            return;
+        }
 
         List<Card> hand = cardInput();
 
@@ -210,14 +217,50 @@ public class PokerTracker {
     private List<Card> cardInput() {
         List<Card> hand = new ArrayList<>();
 
+        String[] ranks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+        String[] suits = { "Spades", "Clubs", "Hearts", "Diamonds" };
+
         for (int i = 0; i < 2; i++) {
-            System.out.println("Enter the new rank of your card (A,2,3,...,J,Q,K)");
+            System.out.println("Enter the rank of your card (A,2,3,...,J,Q,K)");
             String rank = input.next();
-            System.out.println("Enter the new suit of your card (Spades, Clubs, Hearts, Diamonds)");
+            if (!Arrays.asList(ranks).contains(rank)) {
+                System.out.println("Invalid Input ...");
+                i -= 1;
+                continue;
+            }
+
+            System.out.println("Enter the suit of your card (Spades, Clubs, Hearts, Diamonds)");
             String suit = input.next();
+
+            if (!Arrays.asList(suits).contains(suit)) {
+                System.out.println("Invalid Input, please enter the entire card again");
+                i -= 1;
+                continue;
+            }
+
             hand.add(new Card(rank, suit));
 
         }
         return hand;
     }
+
+    // EFFECTS: return users win/loss after user input
+    private boolean winLossInput() {
+        boolean hasWon = false;
+
+        for (int i = 0; i < 1; i++) {
+            System.out.println("Win? (true/false)");
+
+            String winInput = input.next();
+
+            if (winInput.equals("true") || winInput.equals("false")) {
+                hasWon = Boolean.parseBoolean(winInput);
+            } else {
+                System.out.println("Invalid input, please try again...");
+                i--; 
+            }
+        }
+        return hasWon;
+    }
+
 }
