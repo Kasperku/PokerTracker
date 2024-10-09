@@ -57,12 +57,12 @@ public class TestPokerManager extends BaseTest {
         jackOfClubsTwoOfDiamonds.add(testCardJ);
         jackOfClubsTwoOfDiamonds.add(testCard2);
 
-        Map<Integer, List<Card>> expectedLosingHands = new HashMap<>();
-        expectedLosingHands.put(3, threeOfSpadesSevenOfClubs);
-        expectedLosingHands.put(1, jackOfClubsTwoOfDiamonds);
+        Map<List<Card>, Integer> expectedLosingHands = new HashMap<>();
+        expectedLosingHands.put(threeOfSpadesSevenOfClubs, 3);
+        expectedLosingHands.put(jackOfClubsTwoOfDiamonds, 1);
 
         testMultipleLosses.add(testPokerGame1); 
-        Map<Integer, List<Card>> actualLostHands = pokerManager.analyzeLosingHands(testMultipleLosses);
+        Map<List<Card>, Integer> actualLostHands = pokerManager.analyzeLosingHands(testMultipleLosses);
         assertEquals(expectedLosingHands, actualLostHands);
     }
 
