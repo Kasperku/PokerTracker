@@ -33,6 +33,23 @@ public class Card {
     public void setSuit(String suit){
         this.suit = suit;
     }
+
+    // overide equals and hascode so comparison compares the rank and suit of the card
+    // reference: https://www.baeldung.com/java-equals-hashcode-contracts
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) 
+        return true;
+        if (!(o instanceof Card)) 
+        return false;
+        Card card = (Card) o;
+        return rank.equals(card.rank) && suit.equals(card.suit);
+    }
+
+    @Override
+    public int hashCode() {
+        return rank.hashCode() + suit.hashCode();
+    }
 }
 
 
