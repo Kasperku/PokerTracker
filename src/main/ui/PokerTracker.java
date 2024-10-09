@@ -1,5 +1,6 @@
 package ui;
 
+import model.Card;
 import model.PokerGame;
 
 import java.util.ArrayList;
@@ -43,13 +44,13 @@ public class PokerTracker {
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tadd -> add your poker games to log!");
-        System.out.println("\tviewLog -> view your poker games!");
-        System.out.println("\tviewSummary -> view a statistical summary of all your games!");
+        System.out.println("\tviewlog -> view your poker games!");
+        System.out.println("\tviewsummary -> view a statistical summary of all your games!");
         System.out.println("\tedit -> edit a logged game record");
         System.out.println("\tdelete -> delete a game record");
         System.out.println("\tanalyze -> view the hands you lose with the most!");
-        System.out.println("\tsortByAmountWon -> view a log of pokergames by AmountWon");
-        System.out.println("\tsortByWinLoss -> view a log of pokergames by AmountWon");
+        System.out.println("\tsortbyamountwon -> view a log of pokergames by AmountWon");
+        System.out.println("\tsortbywinloss -> view a log of pokergames by AmountWon");
         System.out.println("\tquit -> quit");
     }
 
@@ -58,9 +59,9 @@ public class PokerTracker {
     private void processCommand(String command) {
         if (command.equals("add")) {
             addNewPokerGame();
-        } else if (command.equals("viewLog")) {
+        } else if (command.equals("viewlog")) {
             viewPokerGames();
-        } else if (command.equals("viewSummary")) {
+        } else if (command.equals("viewsummary")) {
             checkStatsSummary();
         } 
         else if (command.equals("edit")) {
@@ -72,10 +73,10 @@ public class PokerTracker {
         else if (command.equals("analyze")) {
             handsWithMostLosses();
         }
-        else if (command.equals("sortByAmountWon")) {
+        else if (command.equals("sortbyamountwon")) {
             sortGamesByAmountWon();
         }
-        else if (command.equals("sortByWinLoss")) {
+        else if (command.equals("sortbywinloss")) {
             sortGamesByWinLoss();
         }
         else {
@@ -94,12 +95,43 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: adds a pokerGame to gameHistory
     private void addNewPokerGame() {
-        // stub
+        System.out.println("Win? (true/false)");
+        boolean hasWon = input.nextBoolean();
+
+        System.err.println("Enter amt won(+) or loss(-)");
+        int amount = input.nextInt();
+
+        List<Card> hand = new ArrayList<>();
+
+        for (int i = 0; i < 2; i++){
+            System.out.println("Enter the rank of your card (A,2,3,...,J,Q,K)");
+            String rank = input.next();
+            System.out.println("Enter the suit of your card (Spades, Clubs, Hearts, Diamonds)");
+            String suit = input.next();
+
+            hand.add(new Card(rank, suit));
+        }
+
+        PokerGame pokerGame = new PokerGame(hasWon, amount, hand);
+        gameHistory.add(pokerGame);
     }
 
     // EFFECTS: Display a list of logged poker games
     private void viewPokerGames() {
-        // stub
+        int counter = 1;
+        for (PokerGame pokergame: gameHistory){
+            boolean hasWon = pokergame.getHasWon();
+            int amount = pokergame.getAmount();
+            List<Card> hand = pokergame.getCards();
+
+            System.out.println("Game" + counter);
+            System.out.println("\tOutcome: " + hasWon);
+            System.out.println("\tAmount Won: " + amount);
+            System.out.println("\tCards Held: " + hand.get(0).getRank() + " of " + hand.get(0).getSuit() 
+            + ", " + hand.get(1).getRank() + " of " + hand.get(1).getSuit());
+
+            counter += 1;
+        }
     }
 
     // EFFECTS: Display game statistics
