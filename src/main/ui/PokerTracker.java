@@ -94,18 +94,8 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: adds a pokerGame to gameHistory
     private void addNewPokerGame() {
-        int amount;
         boolean hasWon = winLossInput();
-
-        System.err.println("Enter amt won(+) or loss(-)");
-        if (input.hasNextInt()) {
-            amount = input.nextInt();
-        } else {
-            System.err.println("Invalid input ...");
-            input.next();
-            return;
-        }
-
+        int amount = amountInput(hasWon);
         List<Card> hand = cardInput();
 
         PokerGame pokerGame = new PokerGame(hasWon, amount, hand);
@@ -154,12 +144,8 @@ public class PokerTracker {
         } else {
             PokerGame pokergame = gameHistory.get(gameNumber - 1);
 
-            System.out.println("Win? (true/false)");
-            boolean newHasWon = input.nextBoolean();
-
-            System.out.println("Enter new amount won(+) or lost(-): ");
-            int newAmount = input.nextInt();
-
+            Boolean newHasWon = winLossInput();
+            int newAmount = amountInput(newHasWon);
             List<Card> newHand = cardInput();
 
             pokergame.setCards((newHand));
@@ -257,10 +243,38 @@ public class PokerTracker {
                 hasWon = Boolean.parseBoolean(winInput);
             } else {
                 System.out.println("Invalid input, please try again...");
-                i--; 
+                i--;
             }
         }
         return hasWon;
+    }
+
+    // EFFECTS: return users win/loss amount after user input
+    private int amountInput(boolean hasWon) {
+        int amount = 0;
+
+        for (int i = 0; i < 1; i++) {
+            System.out.println("Enter amount won(+) or lost(-):");
+
+            if (input.hasNextInt()) {
+                amount = input.nextInt();
+
+                if (hasWon && amount < 0) {
+                    System.out.println("invalid input... enter a positive int");
+                    i--;
+                } else if (!hasWon && amount > 0) {
+                    System.out.println("invalid input... enter a negative int");
+                    i--;
+                } else {
+                    i += 1;
+                }
+            } else {
+                System.out.println("invalid input...");
+                input.next();
+                i--;
+            }
+        }
+        return amount;
     }
 
 }
