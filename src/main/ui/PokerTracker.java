@@ -124,7 +124,7 @@ public class PokerTracker {
             int amount = pokergame.getAmount();
             List<Card> hand = pokergame.getCards();
 
-            System.out.println("Game" + counter);
+            System.out.println("Game " + counter);
             System.out.println("\tOutcome: " + hasWon);
             System.out.println("\tAmount Won: " + amount);
             System.out.println("\tCards Held: " + hand.get(0).getRank() + " of " + hand.get(0).getSuit() 
@@ -148,7 +148,18 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: Delete an existing poker game
     private void delPokerGame() {
-        // stub
+        viewPokerGames();
+
+        System.out.println("Which game do you want to delete? (Enter the game number)");
+        int gameNumber = input.nextInt();
+
+        if (gameNumber <=0 || gameHistory.size() < gameNumber){
+            System.out.println("Invalid game number...");
+        }
+        else{
+            gameHistory.remove(gameNumber - 1);
+            System.err.println("Game " + gameNumber + " has been sucessfully deleted");
+        }
     }
 
     // MODIFIES: this
