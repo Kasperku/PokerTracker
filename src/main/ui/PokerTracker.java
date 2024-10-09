@@ -2,6 +2,7 @@ package ui;
 
 import model.Card;
 import model.PokerGame;
+import model.PokerManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +137,15 @@ public class PokerTracker {
 
     // EFFECTS: Display game statistics
     private void checkStatsSummary() {
-        // stub
+        PokerManager pokerManager = new PokerManager();
+
+        int totalGamesPlayed = gameHistory.size();
+        int winRate = pokerManager.calculateWinRate(gameHistory);
+        int totalWinnings = pokerManager.calculateWinnings(gameHistory);
+
+        System.err.println("Total games played: " + totalGamesPlayed);
+        System.err.println("Total amount won : " + totalWinnings);
+        System.err.println("Win Rate: " + winRate + " %");
     }
 
     // MODIFIES: this
