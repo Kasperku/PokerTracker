@@ -1,6 +1,7 @@
 package model;
-
+import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -39,10 +40,17 @@ public class PokerManager {
 
         for (PokerGame pokergame : pokergames) {
             if (!pokergame.getHasWon()) {
-                if (lostHands.containsKey(pokergame.getCards())) {
-                    lostHands.put(pokergame.getCards(), lostHands.get(pokergame.getCards()) + 1);
+                List<Card> hand = pokergame.getCards();
+                List<Card> rHand = new ArrayList<>(hand); // the reversed of curr hand
+                Collections.reverse(rHand);
+
+                if (lostHands.containsKey(hand)) {
+                    lostHands.put(hand, lostHands.get(hand) + 1);
+
+                } else if (lostHands.containsKey(rHand)) { // rhand in key
+                    lostHands.put(rHand, lostHands.get(rHand) + 1);
                 } else {
-                    lostHands.put(pokergame.getCards(), 1);
+                    lostHands.put(hand, 1);
                 }
             }
         }
