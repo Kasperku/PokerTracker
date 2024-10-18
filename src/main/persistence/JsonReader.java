@@ -46,20 +46,23 @@ public class JsonReader {
 
     // EFFECTS: parses PokerGame from JSON object and returns it
     private PokerGame parsePokerGame(JSONObject jsonObject) {
-        return null; // stub
-    }    
+        boolean hasWon = jsonObject.getBoolean("haswon");
+        int amount = jsonObject.getInt("amount");
+        List<Card> cards = parseCards(jsonObject.getJSONArray("cards"));
+        return new PokerGame(hasWon, amount, cards);
+    }
 
 
     // EFFECTS: parses list of Cards from JSON array and returns them
     private List<Card> parseCards(JSONArray jsonArray) {
-        List<Card> hand = new ArrayList<>();
+        List<Card> cards = new ArrayList<>();
         for (Object json : jsonArray) {
             JSONObject card = (JSONObject) json;
             String rank = card.getString("rank");
             String suit = card.getString("suit");
             Card pokerCard = new Card(rank, suit);
-            hand.add(pokerCard);
+            cards.add(pokerCard);
         }
-        return hand;
+        return cards;
     }
 }
