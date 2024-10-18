@@ -22,4 +22,19 @@ class TestJsonReader extends TestJson {
         } catch (IOException e) {
         }
     }
+
+    @Test
+    void testReaderEmptyPokerGame() {
+        JsonReader reader = new JsonReader("./data/testReaderEmptyPokerGame.json");
+        try {
+            PokerGame pg = reader.read();
+            assertFalse(pg.getHasWon());
+            assertEquals(0, pg.getAmount());
+            assertEquals(0, pg.getCards().size());
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
+
+    
 }
