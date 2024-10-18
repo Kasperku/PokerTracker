@@ -8,13 +8,15 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.json.*;
 
 public class JsonReader {
     // code adapted from The University Of British Columbia,
-    // CPSC210 Winter 2024, jsonSerializationDemo 
+    // CPSC210 Winter 2024, jsonSerializationDemo
 
     private String source;
 
@@ -23,6 +25,13 @@ public class JsonReader {
         this.source = source;
     }
 
+    // EFFECTS: reads PokerGame from file and returns it;
+    // throws IOException if an error occurs reading data from file
+    public PokerGame read() throws IOException {
+        String jsonData = readFile(source);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parsePokerGame(jsonObject);
+    }
 
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
@@ -33,5 +42,16 @@ public class JsonReader {
         }
 
         return contentBuilder.toString();
+    }
+
+    // EFFECTS: parses PokerGame from JSON object and returns it
+    private PokerGame parsePokerGame(JSONObject jsonObject) {
+        return null; // stub
+    }    
+
+
+    // EFFECTS: parses list of Cards from JSON array and returns them
+    private List<Card> parseCards(JSONArray jsonArray) {
+        return null; //stub
     }
 }
