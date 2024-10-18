@@ -52,6 +52,14 @@ public class JsonReader {
 
     // EFFECTS: parses list of Cards from JSON array and returns them
     private List<Card> parseCards(JSONArray jsonArray) {
-        return null; //stub
+        List<Card> hand = new ArrayList<>();
+        for (Object json : jsonArray) {
+            JSONObject card = (JSONObject) json;
+            String rank = card.getString("rank");
+            String suit = card.getString("suit");
+            Card pokerCard = new Card(rank, suit);
+            hand.add(pokerCard);
+        }
+        return hand;
     }
 }
