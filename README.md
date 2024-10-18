@@ -33,3 +33,7 @@ Features:
 - As a user, I want to be able to edit or delete a game record after I’ve logged it.
 
 - As a user, I want to be able to sort the logged games by amount won/lost, or outcome, so I can better analyze my performance.
+
+- As a user, when I select the quit option from the application menu, I want to be reminded to save my poker logs and have the option to do so or not.
+
+- As a user, when I start the application, I want to be given the option to load my poker logs from file.
