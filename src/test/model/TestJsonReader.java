@@ -1,7 +1,5 @@
 package model;
 
-import model.Card;
-import model.PokerGame;
 import persistence.JsonReader;
 
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,7 @@ class TestJsonReader extends TestJson {
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
-            PokerGame pg = reader.read();
+            reader.read();
             fail("IOException expected");
         } catch (IOException e) {
         }
@@ -36,5 +34,24 @@ class TestJsonReader extends TestJson {
         }
     }
 
-    
+    @Test
+    void testReaderGeneralPokerGame() {
+        JsonReader reader = new JsonReader("./data/testReaderGeneralPokerGame.json");
+        try {
+            PokerGame pg = reader.read();
+            assertTrue(pg.getHasWon()); 
+            assertEquals(999, pg.getAmount()); 
+            List<Card> cards = pg.getCards();
+
+            assertEquals(2, cards.size()); 
+            assertEquals("A", cards.get(0).getRank());
+            assertEquals("Spades", cards.get(0).getSuit());
+            assertEquals("A", cards.get(1).getRank());
+            assertEquals("Hearts", cards.get(1).getSuit());
+
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
+
 }
