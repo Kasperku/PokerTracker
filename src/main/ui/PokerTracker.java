@@ -18,14 +18,18 @@ import java.util.Arrays;
 // PokerTracker application
 public class PokerTracker {
 
+    private static final String JSON_STORE = "./data/pokergame.json";
     private List<PokerGame> gameHistory;
     private Scanner input;
     private PokerManager pokerManager;
+    private PokerGame pokerGame;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
     // EFFECTS: run the PokerTracker application
     public PokerTracker() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runPokerTrackerInput();
     }
 
@@ -290,14 +294,29 @@ public class PokerTracker {
         return amount;
     }
 
-    // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the pokerlog to file
     private void savePokerLog() {
-        // stub
+        try {
+            jsonWriter.open();
+            jsonWriter.write(gameHistory);
+            jsonWriter.close();
+            System.out.println("Saved pokerlog to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
-    private void loadPokerLog() {
-        // stub
+    // EFFECTS: loads pokerlog from file
+// MODIFIES: this
+// EFFECTS: loads pokerlog from file
+private void loadPokerLog() {
+    try {
+        gameHistory = jsonReader.read(); 
+        System.out.println("Loaded pokerlog from " + JSON_STORE);
+    } catch (IOException e) {
+        System.out.println("Unable to read from file: " + JSON_STORE);
     }
+}
+
 }
