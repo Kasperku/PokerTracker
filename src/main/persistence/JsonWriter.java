@@ -1,9 +1,12 @@
 package persistence;
 
 import model.PokerGame;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.List;
 
 public class JsonWriter {
     // code adapted from The University Of British Columbia,
@@ -28,9 +31,12 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of PokerGame to file
-    public void write(PokerGame pg) {
-        JSONObject json = pg.toJson();  
-        saveToFile(json.toString(TAB));
+    public void write(List<PokerGame> gameHistory) {
+        JSONArray jsonArray = new JSONArray();
+        for (PokerGame pg : gameHistory){
+            jsonArray.put(pg.toJson());
+        }
+        saveToFile(jsonArray.toString(TAB));
     }
 
     // MODIFIES: this
