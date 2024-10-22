@@ -38,16 +38,18 @@ class TestJsonWriter {
     @Test
     void testWriterEmptyPokerGame() {
         try {
-            ArrayList<Card> dummy = new ArrayList<>();
-
-            PokerGame pg = new PokerGame(false, 0, dummy);
+            ArrayList<PokerGame> pokergames = new ArrayList<>();
+            pokergames.add(new PokerGame(false, 0, new ArrayList<>())); 
+    
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyPokerGame.json");
             writer.open();
-            writer.write(pg);
+            writer.write(pokergames);  
             writer.close();
-
+    
             JsonReader reader = new JsonReader("./data/testWriterEmptyPokerGame.json");
-            pg = reader.read();
+            List<PokerGame> readGames = reader.read();  
+            PokerGame pg = readGames.get(0); 
+    
             assertFalse(pg.getHasWon());
             assertEquals(0, pg.getAmount());
             assertEquals(0, pg.getCards().size());
@@ -55,29 +57,34 @@ class TestJsonWriter {
             fail("Exception should not have been thrown");
         }
     }
+    
 
     @Test
     void testWriterGeneralPokerGame() {
         try {
-            PokerGame pg = new PokerGame(true, 999, hand);
+            ArrayList<PokerGame> pokergames = new ArrayList<>();
+            pokergames.add(new PokerGame(true, 999, hand)); 
+    
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralPokerGame.json");
             writer.open();
-            writer.write(pg);
+            writer.write(pokergames); 
             writer.close();
-
+    
             JsonReader reader = new JsonReader("./data/testWriterGeneralPokerGame.json");
-            pg = reader.read();
+            List<PokerGame> readGames = reader.read();  
+            PokerGame pg = readGames.get(0);  
+    
             assertTrue(pg.getHasWon());
             assertEquals(999, pg.getAmount());
-            List<Card> hand = pg.getCards();
-            assertEquals(2, hand.size());
-            assertEquals("K", hand.get(0).getRank());
-            assertEquals("Hearts", hand.get(0).getSuit());
-            assertEquals("A", hand.get(1).getRank());
-            assertEquals("Diamonds", hand.get(1).getSuit());
-
+            assertEquals(2, pg.getCards().size());
+            assertEquals("K", pg.getCards().get(0).getRank());
+            assertEquals("Hearts", pg.getCards().get(0).getSuit());
+            assertEquals("A", pg.getCards().get(1).getRank());
+            assertEquals("Diamonds", pg.getCards().get(1).getSuit());
+    
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
     }
+    
 }
