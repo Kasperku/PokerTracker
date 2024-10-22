@@ -30,7 +30,8 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of PokerGame to file
     public void write(PokerGame pg) {
-        // stub
+        JSONObject json = pg.toJson();  
+        saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this
