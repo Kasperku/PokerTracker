@@ -61,7 +61,7 @@ public class TestCard extends BaseTest {
 
     @Test
     void testNotEqualDiffObject() {
-        assertFalse(testCard7.equals(""));
+        assertFalse(testCard7.equals(null));
     }
 
     @Test

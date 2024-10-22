@@ -1,7 +1,5 @@
 package model;
 
-import model.Card;
-import model.PokerGame;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -18,7 +16,7 @@ class TestJsonWriter {
     List<Card> hand;
 
     @BeforeEach
-    void runBefore(){
+    void runBefore() {
         Card cardK = new Card("K", "Hearts");
         Card cardA = new Card("A", "Diamonds");
         hand = new ArrayList<>();
@@ -29,8 +27,6 @@ class TestJsonWriter {
     @Test
     void testWriterInvalidFile() {
         try {
-            PokerGame pg = new PokerGame(false, 999, hand);
-
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
@@ -54,7 +50,7 @@ class TestJsonWriter {
             pg = reader.read();
             assertFalse(pg.getHasWon());
             assertEquals(0, pg.getAmount());
-            assertEquals(0, pg.getCards().size());  
+            assertEquals(0, pg.getCards().size());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
