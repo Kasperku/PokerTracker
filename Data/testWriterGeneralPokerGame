@@ -1,0 +1,8 @@
+{
+    "haswon": true,
+    "amount": 999,
+    "cards": [
+        {"rank": "K", "suit": "Hearts"},
+        {"rank": "A", "suit": "Spades"}
+    ]
+}

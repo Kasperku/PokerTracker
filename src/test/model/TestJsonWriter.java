@@ -75,10 +75,10 @@ class TestJsonWriter {
             assertEquals(999, pg.getAmount());
             List<Card> hand = pg.getCards();
             assertEquals(2, hand.size());
-            assertEquals("K", hand.get(1).getRank());
-            assertEquals("Hearts", hand.get(1).getSuit());
-            assertEquals("A", hand.get(0).getRank());
-            assertEquals("Spades", hand.get(0).getSuit());
+            assertEquals("K", hand.get(0).getRank());
+            assertEquals("Hearts", hand.get(0).getSuit());
+            assertEquals("A", hand.get(1).getRank());
+            assertEquals("Spades", hand.get(1).getSuit());
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
