@@ -8,7 +8,6 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ public class PokerTracker {
     private List<PokerGame> gameHistory;
     private Scanner input;
     private PokerManager pokerManager;
-    private PokerGame pokerGame;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -308,15 +306,13 @@ public class PokerTracker {
 
     // MODIFIES: this
     // EFFECTS: loads pokerlog from file
-// MODIFIES: this
-// EFFECTS: loads pokerlog from file
-private void loadPokerLog() {
-    try {
-        gameHistory = jsonReader.read(); 
-        System.out.println("Loaded pokerlog from " + JSON_STORE);
-    } catch (IOException e) {
-        System.out.println("Unable to read from file: " + JSON_STORE);
+    private void loadPokerLog() {
+        try {
+            gameHistory = jsonReader.read();
+            System.out.println("Loaded pokerlog from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
-}
 
 }

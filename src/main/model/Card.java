@@ -5,7 +5,7 @@ import persistence.Writable;
 
 // Represents a card with suit and rank
 
-public class Card implements Writable{
+public class Card implements Writable {
 
     private String rank;
     private String suit;

@@ -53,12 +53,12 @@ public class PokerGame implements Writable{
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("haswon", haswon);
+        json.put("hason", haswon);
         json.put("amount", amount);
         json.put("cards", cardsToJson());
         return json;
     }
-
+    // EFFECTS: returns cards in pokerGame as a JSON array 
     private JSONArray cardsToJson(){
         JSONArray jsonArray = new JSONArray();
 

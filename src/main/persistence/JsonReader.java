@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
+// Represents a reader that reads pokerlog from JSON data stored in file
 public class JsonReader {
     // code adapted from The University Of British Columbia,
     // CPSC210 Winter 2024, jsonSerializationDemo
