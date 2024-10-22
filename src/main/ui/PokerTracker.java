@@ -3,7 +3,12 @@ package ui;
 import model.Card;
 import model.PokerGame;
 import model.PokerManager;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +21,8 @@ public class PokerTracker {
     private List<PokerGame> gameHistory;
     private Scanner input;
     private PokerManager pokerManager;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: run the PokerTracker application
     public PokerTracker() {
@@ -79,9 +86,9 @@ public class PokerTracker {
         } else if (command.equals("sortbywinloss")) {
             sortGamesByWinLoss();
         } else if (command.equals("save")) {
-            // savepokerlog()
+            savePokerLog();
         } else if (command.equals("load")) {
-            // loadpokerlog()
+            loadPokerLog();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -283,4 +290,14 @@ public class PokerTracker {
         return amount;
     }
 
+    // EFFECTS: saves the workroom to file
+    private void savePokerLog() {
+        // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadPokerLog() {
+        // stub
+    }
 }
