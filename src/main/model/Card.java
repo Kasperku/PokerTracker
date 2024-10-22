@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a card with suit and rank
 
-public class Card {
+public class Card implements Writable{
 
     private String rank;
     private String suit;
@@ -50,7 +53,10 @@ public class Card {
     }
 
     @Override
-    public int hashCode() {
-        return rank.hashCode() + suit.hashCode();
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("rank", rank);
+        json.put("suit", suit);
+        return json;
     }
 }
