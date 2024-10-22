@@ -24,12 +24,12 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads PokerGame from file and returns it;
+    // EFFECTS: reads list of PokerGame from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public PokerGame read() throws IOException {
+    public List<PokerGame> read() throws IOException {
         String jsonData = readFile(source);
-        JSONObject jsonObject = new JSONObject(jsonData);
-        return parsePokerGame(jsonObject);
+        JSONArray jsonArray = new JSONArray(jsonData);
+        return parsePokerGames(jsonArray);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -45,12 +45,22 @@ public class JsonReader {
 
     // EFFECTS: parses PokerGame from JSON object and returns it
     private PokerGame parsePokerGame(JSONObject jsonObject) {
-        boolean hasWon = jsonObject.getBoolean("haswon");
+        boolean haswon = jsonObject.getBoolean("haswon");
         int amount = jsonObject.getInt("amount");
         List<Card> cards = parseCards(jsonObject.getJSONArray("cards"));
-        return new PokerGame(hasWon, amount, cards);
+        return new PokerGame(haswon, amount, cards);
     }
 
+    // EFFECTS: parses list of PokerGame from JSON Array and returns it
+    private List<PokerGame> parsePokerGames(JSONArray jsonArray) {
+        List<PokerGame> pokergames = new ArrayList<>();
+        for (Object json : jsonArray) {
+            JSONObject jsonObject = (JSONObject) json;
+            PokerGame pg = parsePokerGame(jsonObject);
+            pokergames.add(pg);
+        }
+        return pokergames;
+    }
 
     // EFFECTS: parses list of Cards from JSON array and returns them
     private List<Card> parseCards(JSONArray jsonArray) {

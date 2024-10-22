@@ -1,14 +1,16 @@
-{
-    "haswon": true,
-    "amount": 999,
-    "cards": [
-        {
-            "rank": "A",
-            "suit": "Spades"
-        },
-        {
-            "rank": "A",
-            "suit": "Hearts"
-        }
-    ]
-}
+[
+    {
+        "haswon": true,
+        "amount": 999,
+        "cards": [
+            {
+                "rank": "A",
+                "suit": "Spades"
+            },
+            {
+                "rank": "A",
+                "suit": "Hearts"
+            }
+        ]
+    }
+]

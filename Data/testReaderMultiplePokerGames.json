@@ -1,0 +1,30 @@
+[
+    {
+        "haswon": true,
+        "amount": 3000,
+        "cards": [
+            {
+                "rank": "9",
+                "suit": "Spades"
+            },
+            {
+                "rank": "3",
+                "suit": "Hearts"
+            }
+        ]
+    },
+    {
+        "haswon": false,
+        "amount": -111,
+        "cards": [
+            {
+                "rank": "Q",
+                "suit": "Diamonds"
+            },
+            {
+                "rank": "J",
+                "suit": "Clubs"
+            }
+        ]
+    }
+]
