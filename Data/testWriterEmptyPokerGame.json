@@ -1,5 +1,5 @@
 {
-    "haswon": false,
     "amount": 0,
-    "cards": []
+    "cards": [],
+    "haswon": false
 }

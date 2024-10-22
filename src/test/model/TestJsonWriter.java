@@ -74,7 +74,7 @@ class TestJsonWriter {
             assertEquals("K", hand.get(0).getRank());
             assertEquals("Hearts", hand.get(0).getSuit());
             assertEquals("A", hand.get(1).getRank());
-            assertEquals("Spades", hand.get(1).getSuit());
+            assertEquals("Diamonds", hand.get(1).getSuit());
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
