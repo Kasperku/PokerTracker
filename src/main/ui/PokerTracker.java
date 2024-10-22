@@ -54,6 +54,8 @@ public class PokerTracker {
         System.out.println("\tanalyze -> view the hands you lose with the most!");
         System.out.println("\tsortbyamountwon -> view a log of pokergames by AmountWon");
         System.out.println("\tsortbywinloss -> view a log of pokergames by AmountWon");
+        System.out.println("\tsave -> save pokerlog to file");
+        System.out.println("\tload -> load pokerlog from file");
         System.out.println("\tquit -> quit");
     }
 
@@ -76,6 +78,10 @@ public class PokerTracker {
             sortGamesByAmountWon();
         } else if (command.equals("sortbywinloss")) {
             sortGamesByWinLoss();
+        } else if (command.equals("save")) {
+            // savepokerlog()
+        } else if (command.equals("load")) {
+            // loadpokerlog()
         } else {
             System.out.println("Selection not valid...");
         }
