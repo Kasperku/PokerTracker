@@ -2,9 +2,14 @@ package model;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents a single poker game having a outcome, amt won/loss, cards held.
 
-public class PokerGame {
+public class PokerGame implements Writable{
 
     private boolean haswon; // true for win, false for lose
     private int amount; // + for amt won, - for loss
@@ -43,5 +48,23 @@ public class PokerGame {
 
     public void setCards(List<Card> cards) {
         this.cards = cards;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("hasWon", haswon);
+        json.put("amount", amount);
+        json.put("cards", cardsToJson());
+        return json;
+    }
+
+    private JSONArray cardsToJson(){
+        JSONArray jsonArray = new JSONArray();
+
+        for (Card card : cards){
+            jsonArray.put(card.toJson());
+        }
+        return jsonArray;
     }
 }
