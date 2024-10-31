@@ -1,14 +1,14 @@
 [{
-    "amount": -30000,
+    "amount": 5,
     "cards": [
         {
             "rank": "A",
-            "suit": "Hearts"
+            "suit": "Spades"
         },
         {
-            "rank": "A",
-            "suit": "Spades"
+            "rank": "5",
+            "suit": "Clubs"
         }
     ],
-    "haswon": false
+    "hason": true
 }]
