@@ -24,6 +24,7 @@ public class PokerManager {
 
         return (int) ((numWins / (numLoss + numWins)) * 100);
     }
+
     // EFFECTS: returns total winnings, - if loss
     public int calculateWinnings(List<PokerGame> pokergames) {
         int winnings = 0;
@@ -56,6 +57,7 @@ public class PokerManager {
         }
         return lostHands;
     }
+
     // MODIFIES: pokergames
     // EFFECTS: sort List<PokerGame> by amount won, largest win on top
     public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames) {
@@ -70,6 +72,7 @@ public class PokerManager {
         }
         return pokergames;
     }
+
     // MODIFIES: pokergames
     // EFFECTS: sort List<PokerGame> by win/loss, won games on top
     public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames) {

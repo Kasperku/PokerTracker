@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import java.io.*;
 import java.util.List;
 
+// Represents a writer that writes JSON representation of pokerlog to file
+
 public class JsonWriter {
     // code adapted from The University Of British Columbia,
     // CPSC210 Winter 2024, jsonSerializationDemo
