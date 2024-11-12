@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -42,17 +43,11 @@ public class PokerManager {
         for (PokerGame pokergame : pokergames) {
             if (!pokergame.getHasWon()) {
                 List<Card> hand = pokergame.getCards();
-                List<Card> reverseHand = new ArrayList<>(hand); // the reversed of curr hand
-                Collections.reverse(reverseHand);
 
-                if (lostHands.containsKey(hand)) {
-                    lostHands.put(hand, lostHands.get(hand) + 1);
+                hand.sort(Comparator.comparing(Card::getRank).thenComparing(Card::getSuit));
 
-                } else if (lostHands.containsKey(reverseHand)) { // reversed hand in key
-                    lostHands.put(reverseHand, lostHands.get(reverseHand) + 1);
-                } else {
-                    lostHands.put(hand, 1);
-                }
+                // Increment the count for this hand in the map
+                lostHands.put(hand, lostHands.getOrDefault(hand, 0) + 1);
             }
         }
         return lostHands;
