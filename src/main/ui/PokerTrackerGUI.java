@@ -9,8 +9,12 @@ import javax.swing.*;
 import model.Card;
 import model.PokerGame;
 import model.PokerManager;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,12 +32,18 @@ public class PokerTrackerGUI extends JFrame {
     private String[] ranks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
     private String[] suits = { "Spades", "Clubs", "Hearts", "Diamonds" };
 
+    private static final String JSON_STORE = "./data/pokergame.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     // EFFECTS: sets up window in which pokerTracker
     // will be displayed
     public PokerTrackerGUI() {
         super("Poker Tracker GUI");
         gameHistory = new ArrayList<>();
         pokerManager = new PokerManager();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(frameWidth, frameHeight));
@@ -279,6 +289,18 @@ public class PokerTrackerGUI extends JFrame {
     }
 
     // MODIFIES: this
+    // EFFECTS: saves the poker log to file and shows a confirmation dialog
+    private void savePokerLog() {
+        // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads the poker log from file and shows a confirmation dialog
+    private void loadPokerLog() {
+        // stub
+    }
+
+    // MODIFIES: this
     // EFFECTS: add buttons to main panel
     private void initializeButtons(JPanel mainPanel) {
 
@@ -302,6 +324,8 @@ public class PokerTrackerGUI extends JFrame {
         buttons.put("Delete Game", new JButton("Delete game"));
         buttons.put("Sort Games by Amount Won", new JButton("Sort log by amount aon"));
         buttons.put("Analyze Hands with Most Losses", new JButton("Analyze Hands with Most Losses"));
+        buttons.put("Save Poker Log", new JButton("Save Poker Log"));
+        buttons.put("Load Poker Log", new JButton("Load Poker Log"));
     }
 
     // MODIFIES: this
@@ -314,6 +338,8 @@ public class PokerTrackerGUI extends JFrame {
         buttons.get("Delete Game").addActionListener(e -> delPokerGame());
         buttons.get("Sort Games by Amount Won").addActionListener(e -> sortGamesByAmountWon());
         buttons.get("Analyze Hands with Most Losses").addActionListener(e -> handsWithMostLosses());
+        buttons.get("Save Poker Log").addActionListener(e -> savePokerLog());
+        buttons.get("Load Poker Log").addActionListener(e -> loadPokerLog());
     }
 
     // EFFECTS: prompts the user for hasWon and return if valid, contiune prompt
