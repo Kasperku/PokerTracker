@@ -37,19 +37,35 @@ public class Card implements Writable {
         this.suit = suit;
     }
 
-    // overide equals and hascode so comparison compares the rank and suit of the
-    // card
-    // reference: https://www.baeldung.com/java-equals-hashcode-contracts
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((rank == null) ? 0 : rank.hashCode());
+        result = prime * result + ((suit == null) ? 0 : suit.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        }
-        if (!(o instanceof Card)) {
+        if (obj == null)
             return false;
-        }
-        Card card = (Card) o;
-        return rank.equals(card.rank) && suit.equals(card.suit);
+        if (getClass() != obj.getClass())
+            return false;
+        Card other = (Card) obj;
+        if (rank == null) {
+            if (other.rank != null)
+                return false;
+        } else if (!rank.equals(other.rank))
+            return false;
+        if (suit == null) {
+            if (other.suit != null)
+                return false;
+        } else if (!suit.equals(other.suit))
+            return false;
+        return true;
     }
 
     @Override
