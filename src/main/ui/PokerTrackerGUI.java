@@ -25,6 +25,9 @@ public class PokerTrackerGUI extends JFrame {
     private List<PokerGame> gameHistory;
     private PokerManager pokerManager;
 
+    private String[] ranks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    private String[] suits = { "Spades", "Clubs", "Hearts", "Diamonds" };
+
     // EFFECTS: sets up window in which pokerTracker
     // will be displayed
     public PokerTrackerGUI() {
@@ -72,40 +75,26 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: display a list of all logged poker games with
     // the individual game statistics
     private void viewPokerGame() {
+        String title = "Poker Game Log";
+
         if (gameHistory.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No poker games logged yet", "Game Log",
-                    JOptionPane.INFORMATION_MESSAGE);
+            showMessage("No poker games logged yet", title);
             return;
         }
 
-        StringBuilder gameLog = new StringBuilder();
-        int counter = 1;
+        String gameLog = String.join("\n\n", getGameDescription());
 
-        for (PokerGame pokerGame : gameHistory) {
-            boolean hasWon = pokerGame.getHasWon();
-            int amount = pokerGame.getAmount();
-            List<Card> hand = pokerGame.getCards();
-
-            gameLog.append("Game ").append(counter).append(":\n");
-            gameLog.append("\tWin?: ").append(hasWon ? "Yes" : "No").append("\n");
-            gameLog.append("\tAmount Won: ").append(amount).append("\n");
-            gameLog.append("\tCards Held: ").append(hand.get(0).getRank()).append(" of ").append(hand.get(0).getSuit())
-                    .append(", ").append(hand.get(1).getRank()).append(" of ").append(hand.get(1).getSuit())
-                    .append("\n\n");
-
-            counter++;
-        }
-
-        JTextArea textArea = new JTextArea(gameLog.toString());
+        JTextArea textArea = new JTextArea(gameLog);
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension(frameWidth, frameHeight));
 
-        JOptionPane.showMessageDialog(this, scrollPane, "Poker Game Log", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, scrollPane, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     // EFFECTS: display statistics across all recorded games
     private void checkStatsSummary() {
+        String title = "Poker Game Statistic Summary";
         int totalGamesPlayed = gameHistory.size();
         int winRate = pokerManager.calculateWinRate(gameHistory);
         int totalWinnings = pokerManager.calculateWinnings(gameHistory);
@@ -115,7 +104,7 @@ public class PokerTrackerGUI extends JFrame {
                 + "Win Rate: " + winRate
                 + " %";
 
-        JOptionPane.showMessageDialog(this, statsSummary, "Poker Game Statistics", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, statsSummary, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
@@ -123,6 +112,7 @@ public class PokerTrackerGUI extends JFrame {
     // selected poker game in the log
     private void editPokerGame() {
         String title = "Edit Poker Game";
+
         if (gameHistory.isEmpty()) {
             showMessage("No games to edit", title);
         }
@@ -158,14 +148,15 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: opens pop up window to gather user input
     // and remove game from log
     private void delPokerGame() {
+        String title = "Delete Game";
         if (gameHistory.isEmpty()) {
             JOptionPane.showMessageDialog(this,
-                    "No poker games to delete", "Delete Game", JOptionPane.INFORMATION_MESSAGE);
+                    "No poker games to delete", title, JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
         String[] gameDescription = getGameDescription();
-        String selectedGame = showDropdownList(gameDescription, "Select a game to delete", "Delete Poker Game");
+        String selectedGame = showDropdownList(gameDescription, "Select a game to delete", title);
 
         if (selectedGame == null) {
             return;
@@ -180,9 +171,10 @@ public class PokerTrackerGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: remove game from log at gameIndex if confirm is YES_OPTION
     private void deleteGameIfConfirm(int gameIndex, int confirm) {
+        String title = "Delete Game";
         if (confirm == JOptionPane.YES_OPTION) {
             gameHistory.remove(gameIndex);
-            showMessage("Game successfully deleted", "Delete Game");
+            showMessage("Game successfully deleted", title);
         }
     }
 
@@ -193,10 +185,11 @@ public class PokerTrackerGUI extends JFrame {
 
     // EFFECTS: pop up window asking for confirmation to delete pokerGame
     private int getConfirmToDelete(String selectedGame) {
+        String title = "Confirm Deleteion";
         int confirm = JOptionPane.showConfirmDialog(
                 this,
                 "Are you sure you want to delete " + selectedGame + "?",
-                "Confirm Deletion",
+                title,
                 JOptionPane.YES_NO_OPTION);
         return confirm;
     }
@@ -246,6 +239,7 @@ public class PokerTrackerGUI extends JFrame {
     private void handsWithMostLosses() {
         Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory);
         String output = "Times lost with hand:\n";
+        String title = "Times lost with Hand";
 
         for (Map.Entry<List<Card>, Integer> entry : lostHands.entrySet()) {
             int numLoss = entry.getValue();
@@ -263,8 +257,7 @@ public class PokerTrackerGUI extends JFrame {
             output += ": " + numLoss + " times\n";
         }
 
-        // Show the output in a dialog box
-        JOptionPane.showMessageDialog(this, output, "Times Lost With Hand", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, output, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
@@ -274,13 +267,14 @@ public class PokerTrackerGUI extends JFrame {
         gameHistory = pokerManager.sortByAmountWon(gameHistory);
         String[] gameDescriptions = getGameDescription();
         String output = "Poker Games Sorted by Amount Won:\n";
+        String title = "Sorted Poker Games by Amount Won";
 
         for (String description : gameDescriptions) {
             output += description + "\n";
         }
 
         // Display the sorted games in a dialog box
-        JOptionPane.showMessageDialog(this, output, "Sorted Poker Games by Amount Won",
+        JOptionPane.showMessageDialog(this, output, title,
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
@@ -369,37 +363,12 @@ public class PokerTrackerGUI extends JFrame {
     private ArrayList<Card> getHand() {
         ArrayList<Card> hand = new ArrayList<>();
 
-        String[] ranks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
-        String[] suits = { "Spades", "Clubs", "Hearts", "Diamonds" };
-
         for (int i = 0; i < 2; i++) {
-            String rank = null;
-            String suit = null;
+            String rank = getRank(i);
+            String suit = getSuit(i);
 
-            while (rank == null) {
-                String inputRank = JOptionPane.showInputDialog(this,
-                        "Enter the rank of card " + (i + 1) + " (A, 2, 3, ..., J, Q, K):");
-                if (inputRank == null) {
-                    return null;
-                }
-                if (Arrays.asList(ranks).contains(inputRank)) {
-                    rank = inputRank;
-                } else {
-                    showInvalidInputMessage();
-                }
-            }
-
-            while (suit == null) {
-                String inputSuit = JOptionPane.showInputDialog(this,
-                        "Enter the suit of card " + (i + 1) + " (Spades, Clubs, Hearts, Diamonds):");
-                if (inputSuit == null) {
-                    return null;
-                }
-                if (Arrays.asList(suits).contains(inputSuit)) {
-                    suit = inputSuit;
-                } else {
-                    showInvalidInputMessage();
-                }
+            if (rank == null || suit == null) {
+                return null;
             }
 
             i = addCardToHandIfNoDuplicate(hand, i, rank, suit);
@@ -407,9 +376,40 @@ public class PokerTrackerGUI extends JFrame {
         return hand;
     }
 
+    // EFFECTS: prompts user for, and return valid rank, null if user cancels
+    private String getRank(int i) {
+        while (true) {
+            String inputRank = JOptionPane.showInputDialog(this,
+                    "Enter the rank of card " + (i + 1) + " (A, 2, 3, ..., J, Q, K):");
+            if (inputRank == null) {
+                return null;
+            }
+            if (Arrays.asList(ranks).contains(inputRank)) {
+                return inputRank;
+            } else {
+                showInvalidInputMessage();
+            }
+        }
+    }
+
+    // EFFECTS: prompts user for, and return valid suit, null if user cancels
+    private String getSuit(int i) {
+        while (true) {
+            String inputSuit = JOptionPane.showInputDialog(this,
+                    "Enter the suit of card " + (i + 1) + " (Spades, Clubs, Hearts, Diamonds):");
+            if (inputSuit == null) {
+                return null;
+            }
+            if (Arrays.asList(suits).contains(inputSuit)) {
+                return inputSuit;
+            } else {
+                showInvalidInputMessage();
+            }
+        }
+    }
+
     // EFFECTS: adds a card to hand if its not a duplicate
     // returns index i if no duplicate, or index i - 1 if duplicate
-
     private int addCardToHandIfNoDuplicate(ArrayList<Card> hand, int i, String rank, String suit) {
         Card card = new Card(rank, suit);
         if (hand.contains(card)) {
