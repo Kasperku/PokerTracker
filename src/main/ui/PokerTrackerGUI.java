@@ -5,7 +5,12 @@ package ui;
  * is displayed
  */
 import javax.swing.*;
+
+import model.Card;
+
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -38,7 +43,9 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: opens pop up window to gather user input
     // and adds game to log
     private void addPokerGame() {
-        // stub
+        boolean hasWon = getHasWon();
+        int amount = getAmount(hasWon);
+        ArrayList<Card> hand = getHand();
     }
 
     // EFFECTS: display a list of all logged poker games with
@@ -113,6 +120,21 @@ public class PokerTrackerGUI extends JFrame {
         buttons.get("Delete Game").addActionListener(e -> delPokerGame());
         buttons.get("Sort Games by Amount Won").addActionListener(e -> sortGamesByAmountWon());
         buttons.get("Analyze Hands with Most Losses").addActionListener(e -> handsWithMostLosses());
+    }
+
+    // EFFECTS: prompts the user for hasWon and return if valid, contiune prompt otherwise.
+    private boolean getHasWon() {
+        return true; //stub
+    }
+
+    // EFFECTS: prompts the user for amount and return if valid, contiune prompt otherwise.
+    private int getAmount(boolean hasWon) {
+        return 0; // stub
+    }
+
+    // EFFECTS: prompts the user for hand and return if valid, contiune prompt otherwise.
+    private ArrayList<Card> getHand() {
+        return null; // stub
     }
 
 }
