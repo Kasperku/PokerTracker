@@ -10,6 +10,7 @@ import model.Card;
 import model.PokerGame;
 
 import java.awt.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -26,6 +27,7 @@ public class PokerTrackerGUI extends JFrame {
     // will be displayed
     public PokerTrackerGUI() {
         super("Poker Tracker GUI");
+        gameHistory = new ArrayList<>();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(frameWidth, frameHeight));
@@ -67,7 +69,36 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: display a list of all logged poker games with
     // the individual game statistics
     private void viewPokerGame() {
-        // stub
+        if (gameHistory.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No poker games logged yet.", "Game Log",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        StringBuilder gameLog = new StringBuilder();
+        int counter = 1;
+
+        for (PokerGame pokerGame : gameHistory) {
+            boolean hasWon = pokerGame.getHasWon();
+            int amount = pokerGame.getAmount();
+            List<Card> hand = pokerGame.getCards();
+
+            gameLog.append("Game ").append(counter).append(":\n");
+            gameLog.append("\tWin?: ").append(hasWon ? "Yes" : "No").append("\n");
+            gameLog.append("\tAmount Won: ").append(amount).append("\n");
+            gameLog.append("\tCards Held: ").append(hand.get(0).getRank()).append(" of ").append(hand.get(0).getSuit())
+                    .append(", ").append(hand.get(1).getRank()).append(" of ").append(hand.get(1).getSuit())
+                    .append("\n\n");
+
+            counter++;
+        }
+
+        JTextArea textArea = new JTextArea(gameLog.toString());
+        textArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(frameWidth, frameHeight));
+
+        JOptionPane.showMessageDialog(this, scrollPane, "Poker Game Log", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // EFFECTS: display statistics across all recorded games
