@@ -7,6 +7,7 @@ package ui;
 import javax.swing.*;
 
 import model.Card;
+import model.PokerGame;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class PokerTrackerGUI extends JFrame {
     private int frameWidth = 600;
     private int frameHeight = 400;
     private Map<String, JButton> buttons;
+
+    private ArrayList<PokerGame> gameHistory;
 
     // EFFECTS: sets up window in which pokerTracker
     // will be displayed
@@ -52,6 +55,13 @@ public class PokerTrackerGUI extends JFrame {
             return;
         }
         ArrayList<Card> hand = getHand();
+        if (hand == null) {
+            return;
+        }
+
+        PokerGame pokerGame = new PokerGame(hasWon, amount, hand);
+        gameHistory.add(pokerGame);
+        JOptionPane.showMessageDialog(this, "Poker game added successfully!");
     }
 
     // EFFECTS: display a list of all logged poker games with
@@ -199,10 +209,10 @@ public class PokerTrackerGUI extends JFrame {
                 String inputSuit = JOptionPane.showInputDialog(this,
                         "Enter the suit of card " + (i + 1) + " (Spades, Clubs, Hearts, Diamonds):");
                 if (inputSuit == null) {
-                    return null; 
+                    return null;
                 }
                 if (Arrays.asList(suits).contains(inputSuit)) {
-                    suit = inputSuit; 
+                    suit = inputSuit;
                 } else {
                     showInvalidInputMessage();
                 }
@@ -214,7 +224,7 @@ public class PokerTrackerGUI extends JFrame {
     }
 
     // EFFECTS: adds a card to hand if its not a duplicate
-    //          returns index i if no duplicate, or index i - 1 if duplicate
+    // returns index i if no duplicate, or index i - 1 if duplicate
 
     private int addCardToHandIfNoDuplicate(ArrayList<Card> hand, int i, String rank, String suit) {
         Card card = new Card(rank, suit);
