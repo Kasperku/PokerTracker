@@ -39,9 +39,27 @@ public class PokerTrackerGUI extends JFrame {
     }
 
     // MODIFIES: this
+    // EFFECTS: opens a pop up window to allow the user to edit details of a
+    // selected poker game in the log
+    private void handleEditPokerGame() {
+        // stub
+    }
+
+    // MODIFIES: this
     // EFFECTS: opens pop up window to gather user input
     // and remove game from log
     private void handleDelPokerGame() {
+        // stub
+    }
+
+    // EFFECTS: displays hands with the most losses
+    private void handleHandsWithMostLosses() {
+        // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: displays the sorted list by amountwon
+    private void handleSortGamesByAmountWon() {
         // stub
     }
 
