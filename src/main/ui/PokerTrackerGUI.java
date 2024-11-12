@@ -18,16 +18,20 @@ public class PokerTrackerGUI extends JFrame {
     public PokerTrackerGUI() {
         super("Poker Tracker GUI");
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        setPreferredSize(new Dimension(frameWidth, frameHeight)); 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(frameWidth, frameHeight));
 
-        initializeButtons();
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new FlowLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        pack(); 
-        setLocationRelativeTo(null); 
-        setVisible(true); 
+        initializeButtons(mainPanel);
+
+        add(mainPanel, BorderLayout.CENTER);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
-
 
     // MODIFIES: this
     // EFFECTS: opens pop up window to gather user input
@@ -74,19 +78,25 @@ public class PokerTrackerGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: add buttons to main panel
-    private void initializeButtons(){
-        // stub
+    private void initializeButtons(JPanel mainPanel) {
+
+        createButtons();
+        linkButtonToActions();
+
+        // for (JButton button : buttons.values()) {
+        //     mainPanel.add(button);
+        // }
     }
 
     // MODIFIES: this
     // EFFECTS: initialize buttons and stores them in map
-    private void createButtons(){
+    private void createButtons() {
         // stub
     }
 
     // MODIFIES: this
     // EFFECTS: links button to its corresponding action listener
-    private void linkButtonToActions(){
+    private void linkButtonToActions() {
         // stub
     }
 
