@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import model.Card;
 import model.PokerGame;
+import model.PokerManager;
 
 import java.awt.*;
 import java.util.List;
@@ -22,12 +23,14 @@ public class PokerTrackerGUI extends JFrame {
     private Map<String, JButton> buttons;
 
     private ArrayList<PokerGame> gameHistory;
+    private PokerManager pokerManager;
 
     // EFFECTS: sets up window in which pokerTracker
     // will be displayed
     public PokerTrackerGUI() {
         super("Poker Tracker GUI");
         gameHistory = new ArrayList<>();
+        pokerManager = new PokerManager();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(frameWidth, frameHeight));
@@ -103,7 +106,15 @@ public class PokerTrackerGUI extends JFrame {
 
     // EFFECTS: display statistics across all recorded games
     private void checkStatsSummary() {
-        // stub
+        int totalGamesPlayed = gameHistory.size();
+        int winRate = pokerManager.calculateWinRate(gameHistory);
+        int totalWinnings = pokerManager.calculateWinnings(gameHistory);
+    
+        String statsSummary = "Total games played: " + totalGamesPlayed + "\n" +
+        "Total amount won: " + totalWinnings + "\n" +
+        "Win Rate: " + winRate + " %";
+
+        JOptionPane.showMessageDialog(this, statsSummary, "Poker Game Statistics", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
