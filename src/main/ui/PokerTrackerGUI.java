@@ -13,12 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PokerTrackerGUI extends JFrame {
+    private int frameWidth = 600;
+    private int frameHeight = 400;
 
     // EFFECTS: sets up window in which pokerTracker
     // will be displayed
     public PokerTrackerGUI() {
-        // stub
+        super("Poker Tracker GUI");
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        setPreferredSize(new Dimension(frameWidth, frameHeight)); 
+
+        pack(); 
+        setLocationRelativeTo(null); 
+        setVisible(true); 
     }
+
 
     // MODIFIES: this
     // EFFECTS: opens pop up window to gather user input
