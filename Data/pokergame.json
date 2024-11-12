@@ -1,14 +1,30 @@
-[{
-    "amount": 3000,
-    "cards": [
-        {
-            "rank": "A",
-            "suit": "Spades"
-        },
-        {
-            "rank": "4",
-            "suit": "Clubs"
-        }
-    ],
-    "haswon": true
-}]
+[
+    {
+        "amount": 3000,
+        "cards": [
+            {
+                "rank": "A",
+                "suit": "Spades"
+            },
+            {
+                "rank": "4",
+                "suit": "Clubs"
+            }
+        ],
+        "haswon": true
+    },
+    {
+        "amount": -50,
+        "cards": [
+            {
+                "rank": "A",
+                "suit": "Clubs"
+            },
+            {
+                "rank": "A",
+                "suit": "Hearts"
+            }
+        ],
+        "haswon": false
+    }
+]

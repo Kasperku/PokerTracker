@@ -291,13 +291,26 @@ public class PokerTrackerGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: saves the poker log to file and shows a confirmation dialog
     private void savePokerLog() {
-        // stub
+        try {
+            jsonWriter.open();
+            jsonWriter.write(gameHistory);
+            jsonWriter.close();
+            showMessage("Saved poker log to " + JSON_STORE, "Save Successfully!");
+        } catch (FileNotFoundException e) {
+            showMessage("Unable to save to " + JSON_STORE, "Saved Failed");
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: loads the poker log from file and shows a confirmation dialog
     private void loadPokerLog() {
-        // stub
+        try {
+            gameHistory = jsonReader.read();
+            showMessage("Poker log loaded successfully from " + JSON_STORE, "Load Successful");
+
+        } catch (IOException e) {
+            showMessage("Unable to read from file: " + JSON_STORE, "Load Failed");
+        }
     }
 
     // MODIFIES: this
