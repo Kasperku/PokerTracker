@@ -122,7 +122,35 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: opens a pop up window to allow the user to edit details of a
     // selected poker game in the log
     private void editPokerGame() {
-        // stub
+        String title = "Edit Poker Game";
+        if (gameHistory.isEmpty()) {
+            showMessage("No games to edit", title);
+        }
+
+        String[] gameDescriptions = getGameDescription();
+        String selectedGame = showDropdownList(gameDescriptions, "Select a game to edit", title);
+
+        if (selectedGame == null) {
+            return; // User canceled the selection
+        }
+
+        int gameIndex = getSelectedGameIndex(gameDescriptions, selectedGame);
+        PokerGame pokerGame = gameHistory.get(gameIndex);
+
+        // Step 2: Gather new details using existing helper methods
+        Boolean hasWon = getHasWon();
+        Integer amount = getAmount(hasWon);
+        List<Card> hand = getHand();
+
+        if (hand == null || amount == null || hasWon == null) {
+            return; // User canceled
+        }
+
+        pokerGame.setHasWon(hasWon);
+        pokerGame.setAmount(amount);
+        pokerGame.setCards(hand);
+
+        showMessage("Successfully Updated!", title);
     }
 
     // REQUIRES: gameIndex is valid in gameHistory
@@ -137,7 +165,7 @@ public class PokerTrackerGUI extends JFrame {
         }
 
         String[] gameDescription = getGameDescription();
-        String selectedGame = showDropdownList(gameDescription);
+        String selectedGame = showDropdownList(gameDescription, "Select a game to delete", "Delete Poker Game");
 
         if (selectedGame == null) {
             return;
@@ -154,9 +182,13 @@ public class PokerTrackerGUI extends JFrame {
     private void deleteGameIfConfirm(int gameIndex, int confirm) {
         if (confirm == JOptionPane.YES_OPTION) {
             gameHistory.remove(gameIndex);
-            JOptionPane.showMessageDialog(this, "Game successfully deleted", "Delete Game",
-                    JOptionPane.INFORMATION_MESSAGE);
+            showMessage("Game successfully deleted", "Delete Game");
         }
+    }
+
+    private void showMessage(String message, String title) {
+        JOptionPane.showMessageDialog(this, message, title,
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     // EFFECTS: pop up window asking for confirmation to delete pokerGame
@@ -184,11 +216,11 @@ public class PokerTrackerGUI extends JFrame {
 
     // EFFECTS: displays a dropdown list containing gameDescription elements and
     // returns the selected game as a String, or null if user clicks canceled
-    private String showDropdownList(String[] gameDescription) {
+    private String showDropdownList(String[] gameDescription, String message, String title) {
         String selectedGame = (String) JOptionPane.showInputDialog(
                 this,
-                "Select a game to delete:",
-                "Delete Poker Game",
+                message,
+                title,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 gameDescription,
