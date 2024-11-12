@@ -212,7 +212,27 @@ public class PokerTrackerGUI extends JFrame {
 
     // EFFECTS: displays hands with the most losses
     private void handsWithMostLosses() {
-        // stub
+        Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory);
+        String output = "Times lost with hand:\n";
+
+        for (Map.Entry<List<Card>, Integer> entry : lostHands.entrySet()) {
+            int numLoss = entry.getValue();
+            List<Card> hand = entry.getKey();
+
+            output += "# of times loss with ";
+
+            for (int i = 0; i < 2; i++) {
+                Card card = hand.get(i);
+                output += card.getRank() + " of " + card.getSuit();
+                if (i < 1) {
+                    output += ", ";
+                }
+            }
+            output += ": " + numLoss + " times\n";
+        }
+
+        // Show the output in a dialog box
+        JOptionPane.showMessageDialog(this, output, "Times lots with hand", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
