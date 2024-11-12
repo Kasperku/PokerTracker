@@ -13,6 +13,7 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -63,7 +64,7 @@ public class PokerTrackerGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: opens pop up window to gather user input
     // and adds game to log
-    private void addPokerGame() {
+    private void addPokerGame(ActionEvent e) {
         Boolean hasWon = getHasWon();
         if (hasWon == null) {
             return;
@@ -84,7 +85,7 @@ public class PokerTrackerGUI extends JFrame {
 
     // EFFECTS: display a list of all logged poker games with
     // the individual game statistics
-    private void viewPokerGame() {
+    private void viewPokerGame(ActionEvent e) {
         String title = "Poker Game Log";
 
         if (gameHistory.isEmpty()) {
@@ -103,7 +104,7 @@ public class PokerTrackerGUI extends JFrame {
     }
 
     // EFFECTS: display statistics across all recorded games
-    private void checkStatsSummary() {
+    private void checkStatsSummary(ActionEvent e) {
         String title = "Poker Game Statistic Summary";
         int totalGamesPlayed = gameHistory.size();
         int winRate = pokerManager.calculateWinRate(gameHistory);
@@ -120,7 +121,7 @@ public class PokerTrackerGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: opens a pop up window to allow the user to edit details of a
     // selected poker game in the log
-    private void editPokerGame() {
+    private void editPokerGame(ActionEvent e) {
         String title = "Edit Poker Game";
 
         if (gameHistory.isEmpty()) {
@@ -131,19 +132,18 @@ public class PokerTrackerGUI extends JFrame {
         String selectedGame = showDropdownList(gameDescriptions, "Select a game to edit", title);
 
         if (selectedGame == null) {
-            return; // User canceled the selection
+            return; 
         }
 
         int gameIndex = getSelectedGameIndex(gameDescriptions, selectedGame);
         PokerGame pokerGame = gameHistory.get(gameIndex);
 
-        // Step 2: Gather new details using existing helper methods
         Boolean hasWon = getHasWon();
         Integer amount = getAmount(hasWon);
         List<Card> hand = getHand();
 
         if (hand == null || amount == null || hasWon == null) {
-            return; // User canceled
+            return; 
         }
 
         pokerGame.setHasWon(hasWon);
@@ -157,7 +157,7 @@ public class PokerTrackerGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: opens pop up window to gather user input
     // and remove game from log
-    private void delPokerGame() {
+    private void delPokerGame(ActionEvent e) {
         String title = "Delete Game";
         if (gameHistory.isEmpty()) {
             JOptionPane.showMessageDialog(this,
@@ -246,7 +246,7 @@ public class PokerTrackerGUI extends JFrame {
     }
 
     // EFFECTS: displays hands with the most losses
-    private void handsWithMostLosses() {
+    private void handsWithMostLosses(ActionEvent e) {
         Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory);
         String output = "Times lost with hand:\n";
         String title = "Times lost with Hand";
@@ -272,7 +272,7 @@ public class PokerTrackerGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: displays the sorted list by amountwon
-    private void sortGamesByAmountWon() {
+    private void sortGamesByAmountWon(ActionEvent e) {
 
         gameHistory = pokerManager.sortByAmountWon(gameHistory);
         String[] gameDescriptions = getGameDescription();
@@ -290,7 +290,7 @@ public class PokerTrackerGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: saves the poker log to file and shows a confirmation dialog
-    private void savePokerLog() {
+    private void savePokerLog(ActionEvent evt) {
         try {
             jsonWriter.open();
             jsonWriter.write(gameHistory);
@@ -303,7 +303,7 @@ public class PokerTrackerGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: loads the poker log from file and shows a confirmation dialog
-    private void loadPokerLog() {
+    private void loadPokerLog(ActionEvent evt) {
         try {
             gameHistory = jsonReader.read();
             showMessage("Poker log loaded successfully from " + JSON_STORE, "Load Successful");
@@ -344,15 +344,15 @@ public class PokerTrackerGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: links button to its corresponding action listener
     private void linkButtonToActions() {
-        buttons.get("Add Game").addActionListener(e -> addPokerGame());
-        buttons.get("View Games").addActionListener(e -> viewPokerGame());
-        buttons.get("Check Stats Summary").addActionListener(e -> checkStatsSummary());
-        buttons.get("Edit Game").addActionListener(e -> editPokerGame());
-        buttons.get("Delete Game").addActionListener(e -> delPokerGame());
-        buttons.get("Sort Games by Amount Won").addActionListener(e -> sortGamesByAmountWon());
-        buttons.get("Analyze Hands with Most Losses").addActionListener(e -> handsWithMostLosses());
-        buttons.get("Save Poker Log").addActionListener(e -> savePokerLog());
-        buttons.get("Load Poker Log").addActionListener(e -> loadPokerLog());
+        buttons.get("Add Game").addActionListener(this::addPokerGame);
+        buttons.get("View Games").addActionListener(this::viewPokerGame);
+        buttons.get("Check Stats Summary").addActionListener(this::checkStatsSummary);
+        buttons.get("Edit Game").addActionListener(this::editPokerGame);
+        buttons.get("Delete Game").addActionListener(this::delPokerGame);
+        buttons.get("Sort Games by Amount Won").addActionListener(this::sortGamesByAmountWon);
+        buttons.get("Analyze Hands with Most Losses").addActionListener(this::handsWithMostLosses);
+        buttons.get("Save Poker Log").addActionListener(this::savePokerLog);
+        buttons.get("Load Poker Log").addActionListener(this::loadPokerLog);
     }
 
     // EFFECTS: prompts the user for hasWon and return if valid, contiune prompt
