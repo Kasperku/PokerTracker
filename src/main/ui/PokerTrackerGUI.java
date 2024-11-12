@@ -149,7 +149,7 @@ public class PokerTrackerGUI extends JFrame {
     // otherwise.
     private Integer getAmount(boolean hasWon) {
         while (true) {
-            String message = hasWon ? "Enter amount won:" : "Enter amount lost:";
+            String message = hasWon ? "Enter amount won:" : "Enter amount lost as a negative number:";
             String amountInput = JOptionPane.showInputDialog(this, message);
 
             if (amountInput == null) {
@@ -173,7 +173,58 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: prompts the user for hand and return if valid, contiune prompt
     // otherwise.
     private ArrayList<Card> getHand() {
-        return null; // stub
+        ArrayList<Card> hand = new ArrayList<>();
+
+        String[] ranks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+        String[] suits = { "Spades", "Clubs", "Hearts", "Diamonds" };
+
+        for (int i = 0; i < 2; i++) {
+            String rank = null;
+            String suit = null;
+
+            while (rank == null) {
+                String inputRank = JOptionPane.showInputDialog(this,
+                        "Enter the rank of card " + (i + 1) + " (A, 2, 3, ..., J, Q, K):");
+                if (inputRank == null) {
+                    return null;
+                }
+                if (Arrays.asList(ranks).contains(inputRank)) {
+                    rank = inputRank;
+                } else {
+                    showInvalidInputMessage();
+                }
+            }
+
+            while (suit == null) {
+                String inputSuit = JOptionPane.showInputDialog(this,
+                        "Enter the suit of card " + (i + 1) + " (Spades, Clubs, Hearts, Diamonds):");
+                if (inputSuit == null) {
+                    return null; 
+                }
+                if (Arrays.asList(suits).contains(inputSuit)) {
+                    suit = inputSuit; 
+                } else {
+                    showInvalidInputMessage();
+                }
+            }
+
+            i = addCardToHandIfNoDuplicate(hand, i, rank, suit);
+        }
+        return hand;
+    }
+
+    // EFFECTS: adds a card to hand if its not a duplicate
+    //          returns index i if no duplicate, or index i - 1 if duplicate
+
+    private int addCardToHandIfNoDuplicate(ArrayList<Card> hand, int i, String rank, String suit) {
+        Card card = new Card(rank, suit);
+        if (hand.contains(card)) {
+            JOptionPane.showMessageDialog(this, "Duplicate card detected. Please enter a different card.");
+            return i - 1;
+        } else {
+            hand.add(card);
+        }
+        return i;
     }
 
     // EFFECTS: show invalid input message
