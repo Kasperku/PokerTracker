@@ -73,7 +73,7 @@ public class PokerTrackerGUI extends JFrame {
     // the individual game statistics
     private void viewPokerGame() {
         if (gameHistory.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No poker games logged yet.", "Game Log",
+            JOptionPane.showMessageDialog(this, "No poker games logged yet", "Game Log",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -109,10 +109,11 @@ public class PokerTrackerGUI extends JFrame {
         int totalGamesPlayed = gameHistory.size();
         int winRate = pokerManager.calculateWinRate(gameHistory);
         int totalWinnings = pokerManager.calculateWinnings(gameHistory);
-    
-        String statsSummary = "Total games played: " + totalGamesPlayed + "\n" +
-        "Total amount won: " + totalWinnings + "\n" +
-        "Win Rate: " + winRate + " %";
+
+        String statsSummary = "Total games played: " + totalGamesPlayed + "\n"
+                + "Total amount won: " + totalWinnings + "\n"
+                + "Win Rate: " + winRate
+                + " %";
 
         JOptionPane.showMessageDialog(this, statsSummary, "Poker Game Statistics", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -124,11 +125,56 @@ public class PokerTrackerGUI extends JFrame {
         // stub
     }
 
+    // REQUIRES: gameIndex is valid in gameHistory
     // MODIFIES: this
     // EFFECTS: opens pop up window to gather user input
     // and remove game from log
     private void delPokerGame() {
+        if (gameHistory.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "No poker games to delete", "Delete Game", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        String[] gameDescription = getGameDescription();
+        String selectedGame = showDropdownList(gameDescription);
+
+        if (selectedGame == null) {
+            return;
+        }
+
+        int gameIndex = getSelectedGameIndex(gameDescription, selectedGame);
+        int confirm = getConfirmToDelete(selectedGame);
+        deleteGameIfConfirm(gameIndex, confirm);
+    }
+
+    // REQUIRES: gameIndex is a valid in gameHistory
+    // MODIFIES: this
+    // EFFECTS: remove game from log at gameIndex if confirm is YES_OPTION
+    private void deleteGameIfConfirm(int gameIndex, int confirm) {
         // stub
+    }
+
+    // EFFECTS: pop up window asking for confirmation to delete pokerGame
+    private int getConfirmToDelete(String selectedGame) {
+        return 0; // stub 
+    }
+
+    // EFFECTS: returns the index of selectedGame within gameDescription; returns -1
+    // if not found
+    private int getSelectedGameIndex(String[] gameDescription, String selectedGame) {
+        return 0; // stub
+    }
+
+    // EFFECTS: displays a dropdown list containing gameDescription elements and
+    // returns the selected game as a String, or null if user clicks canceled
+    private String showDropdownList(String[] gameDescription) {
+        return ""; // stub
+    }
+
+    // EFFECTS: returns an array of descriptions for each game in gameHistory
+    private String[] getGameDescription() {
+        return null; // stub
     }
 
     // EFFECTS: displays hands with the most losses
@@ -185,8 +231,8 @@ public class PokerTrackerGUI extends JFrame {
     private Boolean getHasWon() {
         while (true) {
             String winInput = JOptionPane.showInputDialog(this, "Did you win? (true/false)");
-            if (winInput != null &&
-                    (winInput.equalsIgnoreCase("true")
+            if (winInput != null
+                    && (winInput.equalsIgnoreCase("true")
                             || winInput.equalsIgnoreCase("false"))) {
                 return Boolean.parseBoolean(winInput.toLowerCase());
             } else if (winInput == null) {
