@@ -172,7 +172,14 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: returns the index of selectedGame within gameDescription; returns -1
     // if not found
     private int getSelectedGameIndex(String[] gameDescription, String selectedGame) {
-        return 0; // stub
+        int gameIndex = -1;
+        for (int i = 0; i < gameDescription.length; i++) {
+            if (gameDescription[i].equals(selectedGame)) {
+                gameIndex = i;
+                break;
+            }
+        }
+        return gameIndex;
     }
 
     // EFFECTS: displays a dropdown list containing gameDescription elements and
