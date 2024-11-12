@@ -178,12 +178,29 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: displays a dropdown list containing gameDescription elements and
     // returns the selected game as a String, or null if user clicks canceled
     private String showDropdownList(String[] gameDescription) {
-        return ""; // stub
+        String selectedGame = (String) JOptionPane.showInputDialog(
+                this,
+                "Select a game to delete:",
+                "Delete Poker Game",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                gameDescription,
+                gameDescription[0]);
+        return selectedGame;
     }
 
     // EFFECTS: returns an array of descriptions for each game in gameHistory
     private String[] getGameDescription() {
-        return null; // stub
+        String[] gameDescription = new String[gameHistory.size()];
+        for (int i = 0; i < gameHistory.size(); i++) {
+            PokerGame pokerGame = gameHistory.get(i);
+            List<Card> hand = pokerGame.getCards();
+
+            gameDescription[i] = "Game " + (i + 1) + ": " + (pokerGame.getHasWon() ? "Win" : "Loss, ")
+                    + pokerGame.getAmount() + ", " + hand.get(0).getRank() + " of " + hand.get(0).getSuit()
+                    + ", " + hand.get(1).getRank() + " of " + hand.get(1).getSuit();
+        }
+        return gameDescription;
     }
 
     // EFFECTS: displays hands with the most losses
