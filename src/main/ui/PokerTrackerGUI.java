@@ -47,7 +47,10 @@ public class PokerTrackerGUI extends JFrame {
         if (hasWon == null) {
             return;
         }
-        int amount = getAmount(hasWon);
+        Integer amount = getAmount(hasWon);
+        if (amount == null) {
+            return;
+        }
         ArrayList<Card> hand = getHand();
     }
 
@@ -134,25 +137,48 @@ public class PokerTrackerGUI extends JFrame {
                     (winInput.equalsIgnoreCase("true")
                             || winInput.equalsIgnoreCase("false"))) {
                 return Boolean.parseBoolean(winInput.toLowerCase());
-            } 
-            else if (winInput == null){
+            } else if (winInput == null) {
                 return null;
             }
-
-            JOptionPane.showMessageDialog(this, "Invalid input, please try again...");
+            showInvalidInputMessage();
+            ;
         }
     }
 
     // EFFECTS: prompts the user for amount and return if valid, contiune prompt
     // otherwise.
-    private int getAmount(boolean hasWon) {
-        return 0; // stub
+    private Integer getAmount(boolean hasWon) {
+        while (true) {
+            String message = hasWon ? "Enter amount won:" : "Enter amount lost:";
+            String amountInput = JOptionPane.showInputDialog(this, message);
+
+            if (amountInput == null) {
+                return null;
+            }
+
+            try {
+                int amount = Integer.parseInt(amountInput);
+
+                if ((hasWon && amount > 0) || (!hasWon && amount < 0)) {
+                    return amount;
+                } else {
+                    showInvalidInputMessage();
+                }
+            } catch (NumberFormatException e) {
+                showInvalidInputMessage();
+            }
+        }
     }
 
     // EFFECTS: prompts the user for hand and return if valid, contiune prompt
     // otherwise.
     private ArrayList<Card> getHand() {
         return null; // stub
+    }
+
+    // EFFECTS: show invalid input message
+    private void showInvalidInputMessage() {
+        JOptionPane.showMessageDialog(this, "Invalid input, please try again...");
     }
 
 }
