@@ -22,7 +22,7 @@ public class PokerTrackerGUI extends JFrame {
     private int frameHeight = 400;
     private Map<String, JButton> buttons;
 
-    private ArrayList<PokerGame> gameHistory;
+    private List<PokerGame> gameHistory;
     private PokerManager pokerManager;
 
     // EFFECTS: sets up window in which pokerTracker
@@ -203,7 +203,7 @@ public class PokerTrackerGUI extends JFrame {
             PokerGame pokerGame = gameHistory.get(i);
             List<Card> hand = pokerGame.getCards();
 
-            gameDescription[i] = "Game " + (i + 1) + ": " + (pokerGame.getHasWon() ? "Win" : "Loss, ")
+            gameDescription[i] = "Game " + (i + 1) + ": " + (pokerGame.getHasWon() ? "Win, " : "Loss, ")
                     + pokerGame.getAmount() + ", " + hand.get(0).getRank() + " of " + hand.get(0).getSuit()
                     + ", " + hand.get(1).getRank() + " of " + hand.get(1).getSuit();
         }
@@ -232,13 +232,24 @@ public class PokerTrackerGUI extends JFrame {
         }
 
         // Show the output in a dialog box
-        JOptionPane.showMessageDialog(this, output, "Times lots with hand", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, output, "Times Lost With Hand", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
     // EFFECTS: displays the sorted list by amountwon
     private void sortGamesByAmountWon() {
-        // stub
+
+        gameHistory = pokerManager.sortByAmountWon(gameHistory);
+        String[] gameDescriptions = getGameDescription();
+        String output = "Poker Games Sorted by Amount Won:\n";
+
+        for (String description : gameDescriptions) {
+            output += description + "\n";
+        }
+
+        // Display the sorted games in a dialog box
+        JOptionPane.showMessageDialog(this, output, "Sorted Poker Games by Amount Won",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     // MODIFIES: this
