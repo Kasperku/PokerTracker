@@ -152,12 +152,21 @@ public class PokerTrackerGUI extends JFrame {
     // MODIFIES: this
     // EFFECTS: remove game from log at gameIndex if confirm is YES_OPTION
     private void deleteGameIfConfirm(int gameIndex, int confirm) {
-        // stub
+        if (confirm == JOptionPane.YES_OPTION) {
+            gameHistory.remove(gameIndex);
+            JOptionPane.showMessageDialog(this, "Game successfully deleted", "Delete Game",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     // EFFECTS: pop up window asking for confirmation to delete pokerGame
     private int getConfirmToDelete(String selectedGame) {
-        return 0; // stub 
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete " + selectedGame + "?",
+                "Confirm Deletion",
+                JOptionPane.YES_NO_OPTION);
+        return confirm;
     }
 
     // EFFECTS: returns the index of selectedGame within gameDescription; returns -1
