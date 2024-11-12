@@ -6,6 +6,7 @@ package ui;
  */
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class PokerTrackerGUI extends JFrame {
@@ -83,21 +84,35 @@ public class PokerTrackerGUI extends JFrame {
         createButtons();
         linkButtonToActions();
 
-        // for (JButton button : buttons.values()) {
-        //     mainPanel.add(button);
-        // }
+        for (JButton button : buttons.values()) {
+            mainPanel.add(button);
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: initialize buttons and stores them in map
     private void createButtons() {
-        // stub
+        buttons = new LinkedHashMap<>();
+
+        buttons.put("Add Game", new JButton("Add game"));
+        buttons.put("View Games", new JButton("View log"));
+        buttons.put("Check Stats Summary", new JButton("Check your stats"));
+        buttons.put("Edit Game", new JButton("Edit log"));
+        buttons.put("Delete Game", new JButton("Delete game"));
+        buttons.put("Sort Games by Amount Won", new JButton("Sort log by amount aon"));
+        buttons.put("Analyze Hands with Most Losses", new JButton("Analyze Hands with Most Losses"));
     }
 
     // MODIFIES: this
     // EFFECTS: links button to its corresponding action listener
     private void linkButtonToActions() {
-        // stub
+        buttons.get("Add Game").addActionListener(e -> addPokerGame());
+        buttons.get("View Games").addActionListener(e -> viewPokerGame());
+        buttons.get("Check Stats Summary").addActionListener(e -> checkStatsSummary());
+        buttons.get("Edit Game").addActionListener(e -> editPokerGame());
+        buttons.get("Delete Game").addActionListener(e -> delPokerGame());
+        buttons.get("Sort Games by Amount Won").addActionListener(e -> sortGamesByAmountWon());
+        buttons.get("Analyze Hands with Most Losses").addActionListener(e -> handsWithMostLosses());
     }
 
 }
