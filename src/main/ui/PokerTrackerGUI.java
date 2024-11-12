@@ -43,7 +43,10 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: opens pop up window to gather user input
     // and adds game to log
     private void addPokerGame() {
-        boolean hasWon = getHasWon();
+        Boolean hasWon = getHasWon();
+        if (hasWon == null) {
+            return;
+        }
         int amount = getAmount(hasWon);
         ArrayList<Card> hand = getHand();
     }
@@ -122,17 +125,32 @@ public class PokerTrackerGUI extends JFrame {
         buttons.get("Analyze Hands with Most Losses").addActionListener(e -> handsWithMostLosses());
     }
 
-    // EFFECTS: prompts the user for hasWon and return if valid, contiune prompt otherwise.
-    private boolean getHasWon() {
-        return true; //stub
+    // EFFECTS: prompts the user for hasWon and return if valid, contiune prompt
+    // otherwise.
+    private Boolean getHasWon() {
+        while (true) {
+            String winInput = JOptionPane.showInputDialog(this, "Did you win? (true/false)");
+            if (winInput != null &&
+                    (winInput.equalsIgnoreCase("true")
+                            || winInput.equalsIgnoreCase("false"))) {
+                return Boolean.parseBoolean(winInput.toLowerCase());
+            } 
+            else if (winInput == null){
+                return null;
+            }
+
+            JOptionPane.showMessageDialog(this, "Invalid input, please try again...");
+        }
     }
 
-    // EFFECTS: prompts the user for amount and return if valid, contiune prompt otherwise.
+    // EFFECTS: prompts the user for amount and return if valid, contiune prompt
+    // otherwise.
     private int getAmount(boolean hasWon) {
         return 0; // stub
     }
 
-    // EFFECTS: prompts the user for hand and return if valid, contiune prompt otherwise.
+    // EFFECTS: prompts the user for hand and return if valid, contiune prompt
+    // otherwise.
     private ArrayList<Card> getHand() {
         return null; // stub
     }
