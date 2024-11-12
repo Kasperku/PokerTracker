@@ -28,7 +28,7 @@ public class PokerTracker {
     public PokerTracker() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        runPokerTrackerInput();
+        //runPokerTrackerInput();
     }
 
     // MODIFIES: this
