@@ -37,3 +37,11 @@ Features:
 - As a user, when I select the quit option from the application menu, I want to be reminded to save my poker logs and have the option to do so or not.
 
 - As a user, when I start the application, I want to be given the option to load my poker logs from file.
+
+# Instructions for End User
+
+- You can generate the first required action related to the user story "adding multiple pokergames into my poker tracker" by clicking the add-game button, and then following the instructions and inputting the details of the game, like whether you've won, the amount won/loss, and your hand.
+- You can generate the second required action related to the user story "see a summary of my total wins, losses and amont won over time" by clicking the check-your-stats button, and it will display the summary to you.
+- You can locate my visual component by simply starting the program, you will be greeted by a GUI with buttons and a image.
+- You can save the state of my application by clicking the save-poker-log button. It will show you whether the log has been sucessfully saved or if there is a problem.
+- You can reload the state of my application by clicking the load-poker-log button. It will show you whether the log has been sucessfully logged or it there is a problem.
