@@ -18,6 +18,7 @@ class TestJsonReader extends TestJson {
             reader.read();
             fail("IOException expected");
         } catch (IOException e) {
+            // expected
         }
     }
 
