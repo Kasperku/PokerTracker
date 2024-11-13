@@ -1,42 +1,42 @@
 [
     {
-        "amount": 3000,
+        "amount": -400,
         "cards": [
             {
                 "rank": "A",
-                "suit": "Spades"
+                "suit": "Diamonds"
             },
             {
-                "rank": "4",
-                "suit": "Clubs"
-            }
-        ],
-        "haswon": true
-    },
-    {
-        "amount": -50,
-        "cards": [
-            {
-                "rank": "A",
-                "suit": "Clubs"
-            },
-            {
-                "rank": "A",
-                "suit": "Hearts"
+                "rank": "K",
+                "suit": "Diamonds"
             }
         ],
         "haswon": false
     },
     {
-        "amount": -3499,
+        "amount": -500,
         "cards": [
             {
                 "rank": "A",
-                "suit": "Spades"
+                "suit": "Clubs"
             },
             {
                 "rank": "A",
-                "suit": "Hearts"
+                "suit": "Spades"
+            }
+        ],
+        "haswon": false
+    },
+    {
+        "amount": -500,
+        "cards": [
+            {
+                "rank": "A",
+                "suit": "Clubs"
+            },
+            {
+                "rank": "A",
+                "suit": "Spades"
             }
         ],
         "haswon": false
