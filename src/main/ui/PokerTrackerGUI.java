@@ -1,9 +1,5 @@
 package ui;
 
-/*
- * Represents the main window in which the pokerTracker
- * is displayed
- */
 import javax.swing.*;
 
 import model.Card;
@@ -21,6 +17,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+/*
+ * Represents the main window in which the pokerTracker
+ * is displayed
+ */
 
 public class PokerTrackerGUI extends JFrame {
     private int frameWidth = 600;
@@ -54,11 +55,18 @@ public class PokerTrackerGUI extends JFrame {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         initializeButtons(mainPanel);
+        addImageToPanel(mainPanel);
 
         add(mainPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    // MODIFIES: mainPanel
+    // EFFECTS: Adds a resized image to the top area of the main panel
+    private void addImageToPanel(JPanel mainPanel) {
+        // stub
     }
 
     // MODIFIES: this
@@ -333,6 +341,7 @@ public class PokerTrackerGUI extends JFrame {
         buttons.put("Analyze Hands with Most Losses", new JButton("Analyze Hands with Most Losses"));
         buttons.put("Save Poker Log", new JButton("Save Poker Log"));
         buttons.put("Load Poker Log", new JButton("Load Poker Log"));
+
     }
 
     // MODIFIES: this
@@ -347,6 +356,7 @@ public class PokerTrackerGUI extends JFrame {
         buttons.get("Analyze Hands with Most Losses").addActionListener(this::handsWithMostLosses);
         buttons.get("Save Poker Log").addActionListener(this::savePokerLog);
         buttons.get("Load Poker Log").addActionListener(this::loadPokerLog);
+
     }
 
     // EFFECTS: prompts the user for hasWon and return if valid, contiune prompt
