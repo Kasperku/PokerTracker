@@ -9,7 +9,7 @@ import persistence.Writable;
 
 // Represents a single poker game having a outcome, amt won/loss, cards held.
 
-public class PokerGame implements Writable{
+public class PokerGame implements Writable {
 
     private boolean haswon; // true for win, false for lose
     private int amount; // + for amt won, - for loss
@@ -58,11 +58,12 @@ public class PokerGame implements Writable{
         json.put("cards", cardsToJson());
         return json;
     }
-    // EFFECTS: returns cards in pokerGame as a JSON array 
-    private JSONArray cardsToJson(){
+
+    // EFFECTS: returns cards in pokerGame as a JSON array
+    private JSONArray cardsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Card card : cards){
+        for (Card card : cards) {
             jsonArray.put(card.toJson());
         }
         return jsonArray;

@@ -66,7 +66,8 @@ public class PokerTrackerGUI extends JFrame {
     // MODIFIES: mainPanel
     // EFFECTS: Adds a resized image to the top area of the main panel
     private void addImageToPanel(JPanel mainPanel) {
-        // reference: https://www.freepik.com/free-vector/poker-background-with-golden-cards-realistic-dice_15717693.htm#fromView=keyword&page=23&position=20&uuid=edf0c290-071e-454f-a591-8eeb0a4f0580
+        // reference:
+        // https://www.freepik.com/free-vector/poker-background-with-golden-cards-realistic-dice_15717693.htm#fromView=keyword&page=23&position=20&uuid=edf0c290-071e-454f-a591-8eeb0a4f0580
         int width = 275;
         int height = 225;
         ImageIcon pokerIcon = new ImageIcon("src/main/resources/pokerimage.jpg");

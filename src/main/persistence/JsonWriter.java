@@ -34,7 +34,7 @@ public class JsonWriter {
     // EFFECTS: writes JSON representation of PokerGame to file
     public void write(List<PokerGame> gameHistory) {
         JSONArray jsonArray = new JSONArray();
-        for (PokerGame pg : gameHistory){
+        for (PokerGame pg : gameHistory) {
             jsonArray.put(pg.toJson());
         }
         saveToFile(jsonArray.toString(TAB));
