@@ -26,5 +26,19 @@
             }
         ],
         "haswon": false
+    },
+    {
+        "amount": -3499,
+        "cards": [
+            {
+                "rank": "A",
+                "suit": "Spades"
+            },
+            {
+                "rank": "A",
+                "suit": "Hearts"
+            }
+        ],
+        "haswon": false
     }
 ]
