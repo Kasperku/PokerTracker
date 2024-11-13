@@ -132,7 +132,7 @@ public class PokerTrackerGUI extends JFrame {
         String selectedGame = showDropdownList(gameDescriptions, "Select a game to edit", title);
 
         if (selectedGame == null) {
-            return; 
+            return;
         }
 
         int gameIndex = getSelectedGameIndex(gameDescriptions, selectedGame);
@@ -143,7 +143,7 @@ public class PokerTrackerGUI extends JFrame {
         List<Card> hand = getHand();
 
         if (hand == null || amount == null || hasWon == null) {
-            return; 
+            return;
         }
 
         pokerGame.setHasWon(hasWon);
@@ -220,14 +220,8 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: displays a dropdown list containing gameDescription elements and
     // returns the selected game as a String, or null if user clicks canceled
     private String showDropdownList(String[] gameDescription, String message, String title) {
-        String selectedGame = (String) JOptionPane.showInputDialog(
-                this,
-                message,
-                title,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                gameDescription,
-                gameDescription[0]);
+        String selectedGame = (String) JOptionPane.showInputDialog(this, message, title,
+                JOptionPane.QUESTION_MESSAGE, null, gameDescription, gameDescription[0]);
         return selectedGame;
     }
 
