@@ -2,18 +2,24 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestCard extends BaseTest {
 
     private Card testCard5;
+    private Card cardWithNullRank;
+    private Card cardWithNullSuit;
 
     @BeforeEach
     void runBefore() {
         initializedPokerGame();
+        cardWithNullRank = new Card(null, "Spades");
+        cardWithNullSuit = new Card("A", null);
     }
 
     @Test
@@ -76,4 +82,57 @@ public class TestCard extends BaseTest {
         assertFalse(testCardA.equals(cardKH));
     }
 
+    @Test
+    void testNotEqualsOneValidRankOneNull() {
+        assertFalse(cardWithNullRank.equals(cardWithNullSuit));
+        assertFalse(testCard3.equals(cardWithNullRank));
+    }
+
+    @Test
+    void testNotEqualsOneValidSuitOneNull() {
+        assertFalse(cardWithNullSuit.equals(testCardA));
+    }
+
+    @Test
+    void testHashCodeEqualForSameCard() {
+        testCard5 = new Card("2", "Diamonds");
+        assertEquals(testCard2.hashCode(), testCard5.hashCode());
+    }
+
+    @Test
+    void testHashCodeNotEqualForDiffCard() {
+        assertNotEquals(testCardA.hashCode(), testCard2.hashCode());
+    }
+
+    @Test
+    void testHashCodeWithRankAndSuit() {
+        int expectedHash = 31 * (31 + "A".hashCode()) + "Hearts".hashCode();
+        assertEquals(expectedHash, testCardA.hashCode());
+    }
+
+    @Test
+    void testHashCodeWithNullRank() {
+        int expectedHash = 31 * (31 + 0) + "Spades".hashCode(); // Rank is null, so we use 0
+        assertEquals(expectedHash, cardWithNullRank.hashCode());
+    }
+
+    @Test
+    void testHashCodeWithNullSuit() {
+        int expectedHash = 31 * (31 + "A".hashCode()) + 0; // Suit is null, so we use 0
+        assertEquals(expectedHash, cardWithNullSuit.hashCode());
+    }
+
+
+    @Test
+    void testToJson() {
+        JSONObject json = testCardA.toJson();
+
+        assertEquals("A", json.getString("rank"));
+        assertEquals("Hearts", json.getString("suit"));
+
+        assertTrue(json.has("rank"));
+        assertTrue(json.has("suit"));
+        assertEquals(2, json.length());
+
+    }
 }

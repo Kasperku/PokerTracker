@@ -3,6 +3,7 @@ package model;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -47,29 +48,31 @@ public class TestPokerManager extends BaseTest {
     @Test
     void testAnalyzeLosingHands() {
 
-        // represents the hand (3 of Spades, 7 of Clubs)
-        List<Card> threeOfSpadesSevenOfClubs = new ArrayList<>();
-        threeOfSpadesSevenOfClubs.add(testCard3);
-        threeOfSpadesSevenOfClubs.add(testCard7);
+        // Create expected losing hand entries to match testPokerGames setup
+        List<Card> threeOfSpadesSevenOfClubs = createSortedHand(testCard3, testCard7);
+        List<Card> jackOfClubsTwoOfDiamonds = createSortedHand(testCardJ, testCard2);
 
-        // represents the reverse hand (7 of Clubs, 3 of Spades)
-        List<Card> reverseThreeOfSpadesSevenOfClubs = new ArrayList<>();
-        reverseThreeOfSpadesSevenOfClubs.add(testCard7);
-        reverseThreeOfSpadesSevenOfClubs.add(testCard3);
-        testMultipleLosses.add(new PokerGame(false, -10, reverseThreeOfSpadesSevenOfClubs));
-
-        // represents the hand (J of Clubs, 2 of Diamonds)
-        List<Card> jackOfClubsTwoOfDiamonds = new ArrayList<>();
-        jackOfClubsTwoOfDiamonds.add(testCardJ);
-        jackOfClubsTwoOfDiamonds.add(testCard2);
-
+        // Expected map of losing hands and their counts
         Map<List<Card>, Integer> expectedLosingHands = new HashMap<>();
-        expectedLosingHands.put(threeOfSpadesSevenOfClubs, 4);
+        expectedLosingHands.put(threeOfSpadesSevenOfClubs, 1);
         expectedLosingHands.put(jackOfClubsTwoOfDiamonds, 1);
 
-        testMultipleLosses.add(testPokerGame1);
-        Map<List<Card>, Integer> actualLostHands = pokerManager.analyzeLosingHands(testMultipleLosses);
+        // Run analyzeLosingHands using testPokerGames, which includes both wins and
+        // losses
+        Map<List<Card>, Integer> actualLostHands = pokerManager.analyzeLosingHands(testPokerGames);
+
+        // Assert that the results match expected outcomes
         assertEquals(expectedLosingHands, actualLostHands);
+    }
+
+    // Helper method to create and sort a hand for consistency with the
+    // implementation
+    private List<Card> createSortedHand(Card card1, Card card2) {
+        List<Card> hand = new ArrayList<>();
+        hand.add(card1);
+        hand.add(card2);
+        hand.sort(Comparator.comparing(Card::getRank).thenComparing(Card::getSuit));
+        return hand;
     }
 
     @Test

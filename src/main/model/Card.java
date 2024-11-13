@@ -55,14 +55,13 @@ public class Card implements Writable {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+
         Card other = (Card) obj;
         if (rank == null) {
             if (other.rank != null) {
                 return false;
             }
+
         } else if (!rank.equals(other.rank)) {
             return false;
         }
