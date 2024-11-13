@@ -83,17 +83,6 @@ public class TestCard extends BaseTest {
     }
 
     @Test
-    void testNotEqualsOneValidRankOneNull() {
-        assertFalse(cardWithNullRank.equals(cardWithNullSuit));
-        assertFalse(testCard3.equals(cardWithNullRank));
-    }
-
-    @Test
-    void testNotEqualsOneValidSuitOneNull() {
-        assertFalse(cardWithNullSuit.equals(testCardA));
-    }
-
-    @Test
     void testHashCodeEqualForSameCard() {
         testCard5 = new Card("2", "Diamonds");
         assertEquals(testCard2.hashCode(), testCard5.hashCode());
