@@ -46,7 +46,6 @@ public class Card implements Writable {
         return result;
     }
 
-    @SuppressWarnings("methodlength")
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
