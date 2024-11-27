@@ -18,7 +18,6 @@ import java.util.Arrays;
 public class PokerTracker {
 
     private static final String JSON_STORE = "./data/pokergame.json";
-    private List<PokerGame> gameHistory;
     private Scanner input;
     private PokerManager pokerManager;
     private JsonWriter jsonWriter;
@@ -99,7 +98,6 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: initializes gameHistory
     private void init() {
-        gameHistory = new ArrayList<>();
         input = new Scanner(System.in);
         input.useDelimiter("\r?\n|\r");
 
@@ -154,7 +152,7 @@ public class PokerTracker {
         System.out.println("Which game do you want to edit? (Enter the game number)");
         int gameNumber = input.nextInt();
 
-        if (gameNumber <= 0 || gameHistory.size() < gameNumber) {
+        if (gameNumber <= 0 || pokerManager.getGameHistory().size() < gameNumber) {
             System.out.println("Invalid game number...");
         } else {
             Boolean newHasWon = winLossInput();
