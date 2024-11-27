@@ -114,13 +114,13 @@ public class PokerTracker {
         List<Card> hand = cardInput();
 
         PokerGame pokerGame = new PokerGame(hasWon, amount, hand);
-        gameHistory.add(pokerGame);
+        pokerManager.addPokerGame(pokerGame);
     }
 
     // EFFECTS: Display a list of logged poker games with their stats
     private void viewPokerGames() {
         int counter = 1;
-        for (PokerGame pokergame : gameHistory) {
+        for (PokerGame pokergame : pokerManager.getGameHistory()) {
             boolean hasWon = pokergame.getHasWon();
             int amount = pokergame.getAmount();
             List<Card> hand = pokergame.getCards();
@@ -137,9 +137,9 @@ public class PokerTracker {
 
     // EFFECTS: Display game statistics
     private void checkStatsSummary() {
-        int totalGamesPlayed = gameHistory.size();
-        int winRate = pokerManager.calculateWinRate(gameHistory);
-        int totalWinnings = pokerManager.calculateWinnings(gameHistory);
+        int totalGamesPlayed = pokerManager.getGameHistory().size();
+        int winRate = pokerManager.calculateWinRate();
+        int totalWinnings = pokerManager.calculateWinnings();
 
         System.err.println("Total games played: " + totalGamesPlayed);
         System.err.println("Total amount won : " + totalWinnings);
@@ -157,15 +157,12 @@ public class PokerTracker {
         if (gameNumber <= 0 || gameHistory.size() < gameNumber) {
             System.out.println("Invalid game number...");
         } else {
-            PokerGame pokergame = gameHistory.get(gameNumber - 1);
-
             Boolean newHasWon = winLossInput();
             int newAmount = amountInput(newHasWon);
             List<Card> newHand = cardInput();
 
-            pokergame.setCards((newHand));
-            pokergame.setAmount(newAmount);
-            pokergame.setHasWon(newHasWon);
+            PokerGame newGame = new PokerGame(newHasWon, newAmount, newHand);
+            pokerManager.editPokerGame(gameNumber - 1, newGame); 
             System.out.println("Game " + gameNumber + " has been successfully updated");
         }
     }
@@ -178,17 +175,17 @@ public class PokerTracker {
         System.out.println("Which game do you want to delete? (Enter the game number)");
         int gameNumber = input.nextInt();
 
-        if (gameNumber <= 0 || gameHistory.size() < gameNumber) {
+        if (gameNumber <= 0 || pokerManager.getGameHistory().size() < gameNumber) {
             System.out.println("Invalid game number...");
         } else {
-            gameHistory.remove(gameNumber - 1);
+            pokerManager.delPokerGame(gameNumber - 1);
             System.err.println("Game " + gameNumber + " has been sucessfully deleted");
         }
     }
 
     // EFFECTS: Display hands with the most losses
     private void handsWithMostLosses() {
-        Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory);
+        Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands();
         for (Map.Entry<List<Card>, Integer> entry : lostHands.entrySet()) {
             int numLoss = entry.getValue();
             List<Card> hand = entry.getKey();
@@ -203,14 +200,14 @@ public class PokerTracker {
     // MODIFIES: this
     // EFFECTS: display sorted games by amount won
     private void sortGamesByAmountWon() {
-        gameHistory = pokerManager.sortByAmountWon(gameHistory);
+        pokerManager.sortByAmountWon();
         viewPokerGames();
     }
 
     // MODIFIES: this
     // EFFECTS: display sorted games by amount won
     private void sortGamesByWinLoss() {
-        gameHistory = pokerManager.sortByWinLoss(gameHistory);
+        pokerManager.sortByWinLoss();
         viewPokerGames();
     }
 
@@ -296,7 +293,7 @@ public class PokerTracker {
     private void savePokerLog() {
         try {
             jsonWriter.open();
-            jsonWriter.write(gameHistory);
+            jsonWriter.write(pokerManager.getGameHistory());
             jsonWriter.close();
             System.out.println("Saved pokerlog to " + JSON_STORE);
         } catch (FileNotFoundException e) {
@@ -308,7 +305,8 @@ public class PokerTracker {
     // EFFECTS: loads pokerlog from file
     private void loadPokerLog() {
         try {
-            gameHistory = jsonReader.read();
+            List<PokerGame> loadedGames = jsonReader.read();
+            pokerManager.setGameHistory(loadedGames);
             System.out.println("Loaded pokerlog from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
