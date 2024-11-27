@@ -1,6 +1,7 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,7 +17,7 @@ public class TestPokerManager extends BaseTest {
     @BeforeEach
     void runBefore() {
         pokerManager = new PokerManager();
-        initializedPokerGame(); 
+        initializedPokerGame();
 
         pokerManager.addPokerGame(testPokerGame1); // +3000
         pokerManager.addPokerGame(testPokerGame2); // -200
@@ -36,7 +37,7 @@ public class TestPokerManager extends BaseTest {
 
     @Test
     void testAnalyzeLosingHands() {
-        List<Card> sortedTestCards2 = createSortedHand(testCard3, testCard7); 
+        List<Card> sortedTestCards2 = createSortedHand(testCard3, testCard7);
         List<Card> sortedTestCards3 = createSortedHand(testCardJ, testCard2);
 
         Map<List<Card>, Integer> expectedLosingHands = new HashMap<>();
@@ -63,9 +64,9 @@ public class TestPokerManager extends BaseTest {
         pokerManager.sortByWinLoss();
         List<PokerGame> sortedGames = pokerManager.getGameHistory();
 
-        assertEquals(true, sortedGames.get(0).getHasWon()); 
-        assertEquals(true, sortedGames.get(1).getHasWon()); 
-        assertEquals(false, sortedGames.get(2).getHasWon()); 
+        assertEquals(true, sortedGames.get(0).getHasWon());
+        assertEquals(true, sortedGames.get(1).getHasWon());
+        assertEquals(false, sortedGames.get(2).getHasWon());
         assertEquals(false, sortedGames.get(3).getHasWon());
     }
 
@@ -77,4 +78,38 @@ public class TestPokerManager extends BaseTest {
         hand.sort(Comparator.comparing(Card::getRank).thenComparing(Card::getSuit));
         return hand;
     }
+
+    @Test
+    void testEditPokerGame() {
+        PokerGame newGame = new PokerGame(false, -500, testCards1);
+        pokerManager.editPokerGame(0, newGame);
+        assertEquals(newGame, pokerManager.getGameHistory().get(0));
+        assertEquals(testPokerGame2, pokerManager.getGameHistory().get(1));
+        assertEquals(4, pokerManager.getGameHistory().size());
+    }
+
+    @Test
+    void testDelPokerGame() {
+        pokerManager.delPokerGame(0);
+        assertEquals(3, pokerManager.getGameHistory().size());
+        assertEquals(testPokerGame2, pokerManager.getGameHistory().get(0));
+        assertEquals(testPokerGame4, pokerManager.getGameHistory().get(2));
+    }
+
+    @Test
+    void testSetGameHistory() {
+        List<PokerGame> newGameHistory = new ArrayList<>();
+        newGameHistory.add(testPokerGame3); 
+        newGameHistory.add(testPokerGame4);
+
+        pokerManager.setGameHistory(newGameHistory);
+
+        assertEquals(2, pokerManager.getGameHistory().size()); 
+        assertEquals(testPokerGame3, pokerManager.getGameHistory().get(0));
+        assertEquals(testPokerGame4, pokerManager.getGameHistory().get(1)); 
+
+        assertFalse(pokerManager.getGameHistory().contains(testPokerGame1));
+        assertFalse(pokerManager.getGameHistory().contains(testPokerGame2));
+    }
+
 }
