@@ -31,9 +31,6 @@ public class PokerManager {
     // and logs the event
 
     public void editPokerGame(int index, PokerGame newGame) {
-        if (index < 0 || index >= gameHistory.size()) {
-            throw new IllegalArgumentException("Index is out of bounds.");
-        }
         PokerGame oldGame = gameHistory.set(index, newGame);
         EventLog.getInstance().logEvent(
                 new Event("Poker game edited: " + oldGame + " replaced with " + newGame));
@@ -44,9 +41,6 @@ public class PokerManager {
     // EFFECTS: removes the poker game at the specified index and logs the event
 
     public void delPokerGame(int index) {
-        if (index < 0 || index >= gameHistory.size()) {
-            throw new IllegalArgumentException("Index is out of bounds.");
-        }
         PokerGame removedGame = gameHistory.remove(index);
         EventLog.getInstance().logEvent(new Event("Poker game deleted: " + removedGame));
     }
@@ -65,10 +59,6 @@ public class PokerManager {
             if (pokerGame.getHasWon()) {
                 numWins++;
             }
-        }
-
-        if (gameHistory.isEmpty()) {
-            return 0;
         }
         return (int) ((numWins / gameHistory.size()) * 100);
     }
@@ -112,4 +102,13 @@ public class PokerManager {
     public void sortByWinLoss() {
         gameHistory.sort((game1, game2) -> Boolean.compare(!game1.getHasWon(), !game2.getHasWon()));
     }
+
+    // MODIFIES: this
+    // EFFECTS: replaces the current game history with newGameHistory
+    public void setGameHistory(List<PokerGame> newGameHistory) {
+        gameHistory = new ArrayList<>(newGameHistory);
+    }
+
+    
+
 }
