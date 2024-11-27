@@ -208,6 +208,7 @@ public class PokerTrackerGUI extends JFrame {
         }
     }
 
+    // EFFECTS: show message to GUI
     private void showMessage(String message, String title) {
         JOptionPane.showMessageDialog(this, message, title,
                 JOptionPane.INFORMATION_MESSAGE);
