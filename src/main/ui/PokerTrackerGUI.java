@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 
 import model.Card;
+import model.EventLog;
 import model.PokerGame;
 import model.PokerManager;
 import persistence.JsonReader;
@@ -59,6 +60,20 @@ public class PokerTrackerGUI extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+
+        // Add a window listener to print the event log when the application exits
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                printLog(EventLog.getInstance());
+            }
+        });
+    }
+
+    private void printLog(EventLog el) {
+        for (model.Event next : el) {
+            System.out.println(next); 
+        }
     }
 
     // MODIFIES: mainPanel
