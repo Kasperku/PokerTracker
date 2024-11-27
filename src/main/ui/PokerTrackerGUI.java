@@ -28,7 +28,6 @@ public class PokerTrackerGUI extends JFrame {
     private int frameHeight = 400;
     private Map<String, JButton> buttons;
 
-    private List<PokerGame> gameHistory;
     private PokerManager pokerManager;
 
     private String[] ranks = { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
@@ -42,7 +41,6 @@ public class PokerTrackerGUI extends JFrame {
     // will be displayed
     public PokerTrackerGUI() {
         super("Poker Tracker GUI");
-        gameHistory = new ArrayList<>();
         pokerManager = new PokerManager();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -99,7 +97,7 @@ public class PokerTrackerGUI extends JFrame {
         }
 
         PokerGame pokerGame = new PokerGame(hasWon, amount, hand);
-        gameHistory.add(pokerGame);
+        pokerManager.addPokerGame(pokerGame);
         JOptionPane.showMessageDialog(this, "Poker game added successfully!");
     }
 
@@ -108,7 +106,7 @@ public class PokerTrackerGUI extends JFrame {
     private void viewPokerGame(ActionEvent e) {
         String title = "Poker Game Log";
 
-        if (gameHistory.isEmpty()) {
+        if (pokerManager.getGameHistory().isEmpty()) {
             showMessage("No poker games logged yet", title);
             return;
         }
@@ -126,9 +124,9 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: display statistics across all recorded games
     private void checkStatsSummary(ActionEvent e) {
         String title = "Poker Game Statistic Summary";
-        int totalGamesPlayed = gameHistory.size();
-        int winRate = pokerManager.calculateWinRate(gameHistory);
-        int totalWinnings = pokerManager.calculateWinnings(gameHistory);
+        int totalGamesPlayed = pokerManager.getGameHistory().size();
+        int winRate = pokerManager.calculateWinRate();
+        int totalWinnings = pokerManager.calculateWinnings();
 
         String statsSummary = "Total games played: " + totalGamesPlayed + "\n"
                 + "Total amount won: " + totalWinnings + "\n"
@@ -144,7 +142,7 @@ public class PokerTrackerGUI extends JFrame {
     private void editPokerGame(ActionEvent e) {
         String title = "Edit Poker Game";
 
-        if (gameHistory.isEmpty()) {
+        if (pokerManager.getGameHistory().isEmpty()) {
             showMessage("No games to edit", title);
         }
 
@@ -156,7 +154,6 @@ public class PokerTrackerGUI extends JFrame {
         }
 
         int gameIndex = getSelectedGameIndex(gameDescriptions, selectedGame);
-        PokerGame pokerGame = gameHistory.get(gameIndex);
 
         Boolean hasWon = getHasWon();
         Integer amount = getAmount(hasWon);
@@ -166,9 +163,8 @@ public class PokerTrackerGUI extends JFrame {
             return;
         }
 
-        pokerGame.setHasWon(hasWon);
-        pokerGame.setAmount(amount);
-        pokerGame.setCards(hand);
+        PokerGame newGame = new PokerGame(hasWon, amount, hand);
+        pokerManager.editPokerGame(gameIndex, newGame);
 
         showMessage("Successfully Updated!", title);
     }
@@ -179,7 +175,7 @@ public class PokerTrackerGUI extends JFrame {
     // and remove game from log
     private void delPokerGame(ActionEvent e) {
         String title = "Delete Game";
-        if (gameHistory.isEmpty()) {
+        if (pokerManager.getGameHistory().isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "No poker games to delete", title, JOptionPane.INFORMATION_MESSAGE);
             return;
@@ -203,7 +199,7 @@ public class PokerTrackerGUI extends JFrame {
     private void deleteGameIfConfirm(int gameIndex, int confirm) {
         String title = "Delete Game";
         if (confirm == JOptionPane.YES_OPTION) {
-            gameHistory.remove(gameIndex);
+            pokerManager.delPokerGame(gameIndex);
             showMessage("Game successfully deleted", title);
         }
     }
@@ -248,6 +244,7 @@ public class PokerTrackerGUI extends JFrame {
 
     // EFFECTS: returns an array of descriptions for each game in gameHistory
     private String[] getGameDescription() {
+        List<PokerGame> gameHistory = pokerManager.getGameHistory();
         String[] gameDescription = new String[gameHistory.size()];
         for (int i = 0; i < gameHistory.size(); i++) {
             PokerGame pokerGame = gameHistory.get(i);
@@ -262,7 +259,7 @@ public class PokerTrackerGUI extends JFrame {
 
     // EFFECTS: displays hands with the most losses
     private void handsWithMostLosses(ActionEvent e) {
-        Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands(gameHistory);
+        Map<List<Card>, Integer> lostHands = pokerManager.analyzeLosingHands();
         String output = "Times lost with hand:\n";
         String title = "Times lost with Hand";
 
@@ -289,7 +286,7 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: displays the sorted list by amountwon
     private void sortGamesByAmountWon(ActionEvent e) {
 
-        gameHistory = pokerManager.sortByAmountWon(gameHistory);
+        pokerManager.sortByAmountWon();
         String[] gameDescriptions = getGameDescription();
         String output = "Poker Games Sorted by Amount Won:\n";
         String title = "Sorted Poker Games by Amount Won";
@@ -308,7 +305,7 @@ public class PokerTrackerGUI extends JFrame {
     private void savePokerLog(ActionEvent evt) {
         try {
             jsonWriter.open();
-            jsonWriter.write(gameHistory);
+            jsonWriter.write(pokerManager.getGameHistory());
             jsonWriter.close();
             showMessage("Saved poker log to " + JSON_STORE, "Save Successfully!");
         } catch (FileNotFoundException e) {
@@ -320,7 +317,8 @@ public class PokerTrackerGUI extends JFrame {
     // EFFECTS: loads the poker log from file and shows a confirmation dialog
     private void loadPokerLog(ActionEvent evt) {
         try {
-            gameHistory = jsonReader.read();
+            List<PokerGame> loadedGames = jsonReader.read();
+            pokerManager.setGameHistory(loadedGames);
             showMessage("Poker log loaded successfully from " + JSON_STORE, "Load Successful");
 
         } catch (IOException e) {
