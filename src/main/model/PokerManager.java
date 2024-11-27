@@ -1,84 +1,115 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
-// represents a PokerManager for calculating game statistics and sorting of games played
+/**
+ * Represents a PokerManager for managing poker games, calculating statistics,
+ * and sorting games.
+ */
 public class PokerManager {
-    // REQUIRES: pokergames.size() > 0
-    // EFFECTS: returns winrate as a %
-    public int calculateWinRate(List<PokerGame> pokergames) {
-        double numWins = 0;
-        int numLoss = 0;
+    private List<PokerGame> gameHistory;
 
-        for (PokerGame pokergame : pokergames) {
-            if (pokergame.getHasWon()) {
-                numWins += 1;
-            } else {
-                numLoss += 1;
+    public PokerManager() {
+        this.gameHistory = new ArrayList<>();
+    }
+
+    // REQUIRES: pokerGame is not null
+    // MODIFIES: this
+    // EFFECTS: adds a poker game to the game history and logs the event
+    public void addPokerGame(PokerGame pokerGame) {
+        gameHistory.add(pokerGame);
+        EventLog.getInstance().logEvent(new Event("Poker game added: " + pokerGame));
+    }
+
+    // REQUIRES: 0 <= index < size of gameHistory and newGame is not null
+    // MODIFIES: this
+    // EFFECTS: replaces the poker game at the specified index with newGame
+    // and logs the event
+
+    public void editPokerGame(int index, PokerGame newGame) {
+        if (index < 0 || index >= gameHistory.size()) {
+            throw new IllegalArgumentException("Index is out of bounds.");
+        }
+        PokerGame oldGame = gameHistory.set(index, newGame);
+        EventLog.getInstance().logEvent(
+                new Event("Poker game edited: " + oldGame + " replaced with " + newGame));
+    }
+
+    // REQUIRES: 0 <= index < size of gameHistory
+    // MODIFIES: this
+    // EFFECTS: removes the poker game at the specified index and logs the event
+
+    public void delPokerGame(int index) {
+        if (index < 0 || index >= gameHistory.size()) {
+            throw new IllegalArgumentException("Index is out of bounds.");
+        }
+        PokerGame removedGame = gameHistory.remove(index);
+        EventLog.getInstance().logEvent(new Event("Poker game deleted: " + removedGame));
+    }
+
+    // EFFECTS: return gameHisotyr
+    public List<PokerGame> getGameHistory() {
+        return gameHistory;
+    }
+
+    // EFFECTS: calculates the win rate as a percentage
+
+    public int calculateWinRate() {
+        double numWins = 0;
+
+        for (PokerGame pokerGame : gameHistory) {
+            if (pokerGame.getHasWon()) {
+                numWins++;
             }
         }
 
-        return (int) ((numWins / (numLoss + numWins)) * 100);
+        if (gameHistory.isEmpty()) {
+            return 0;
+        }
+        return (int) ((numWins / gameHistory.size()) * 100);
     }
 
-    // EFFECTS: returns total winnings, - if loss
-    public int calculateWinnings(List<PokerGame> pokergames) {
+    // EFFECTS: calculates the total winnings. Losses are negative amounts.
+
+    public int calculateWinnings() {
         int winnings = 0;
 
-        for (PokerGame pokergame : pokergames) {
-            winnings = winnings + pokergame.getAmount();
+        for (PokerGame pokerGame : gameHistory) {
+            winnings += pokerGame.getAmount();
         }
         return winnings;
     }
 
-    // EFFECTS: analyze which hand lead to most losses
-    public Map<List<Card>, Integer> analyzeLosingHands(List<PokerGame> pokergames) {
+    // EFFECTS: analyzes which hands lead to the most losses
+
+    public Map<List<Card>, Integer> analyzeLosingHands() {
         Map<List<Card>, Integer> lostHands = new HashMap<>();
 
-        for (PokerGame pokergame : pokergames) {
-            if (!pokergame.getHasWon()) {
-                List<Card> hand = pokergame.getCards();
-
+        for (PokerGame pokerGame : gameHistory) {
+            if (!pokerGame.getHasWon()) {
+                List<Card> hand = new ArrayList<>(pokerGame.getCards());
                 hand.sort(Comparator.comparing(Card::getRank).thenComparing(Card::getSuit));
-
-                // Increment the count for this hand in the map
                 lostHands.put(hand, lostHands.getOrDefault(hand, 0) + 1);
             }
         }
         return lostHands;
     }
 
-    // MODIFIES: pokergames
-    // EFFECTS: sort List<PokerGame> by amount won, largest win on top
-    public List<PokerGame> sortByAmountWon(List<PokerGame> pokergames) {
-        for (int i = 0; i < pokergames.size() - 1; i++) {
-            for (int j = 0; j < pokergames.size() - i - 1; j++) {
-                if (pokergames.get(j).getAmount() < pokergames.get(j + 1).getAmount()) {
-                    PokerGame dummy = pokergames.get(j);
-                    pokergames.set(j, pokergames.get(j + 1));
-                    pokergames.set(j + 1, dummy);
-                }
-            }
-        }
-        return pokergames;
+    // MODIFIES: this
+    // EFFECTS: sorts the game history by amount won, with the largest wins on top
+
+    public void sortByAmountWon() {
+        gameHistory.sort((game1, game2) -> Integer.compare(game2.getAmount(), game1.getAmount()));
     }
 
-    // MODIFIES: pokergames
-    // EFFECTS: sort List<PokerGame> by win/loss, won games on top
-    public List<PokerGame> sortByWinLoss(List<PokerGame> pokergames) {
-        for (int i = 0; i < pokergames.size() - 1; i++) {
-            for (int j = 0; j < pokergames.size() - i - 1; j++) {
-                if (!pokergames.get(j).getHasWon() && pokergames.get(j + 1).getHasWon()) {
-                    PokerGame dummy = pokergames.get(j);
-                    pokergames.set(j, pokergames.get(j + 1));
-                    pokergames.set(j + 1, dummy);
-                }
-            }
-        }
+    // MODIFIES: this
+    // EFFECTS: sorts the game history by win/loss, with won games on top
 
-        return pokergames;
+    public void sortByWinLoss() {
+        gameHistory.sort((game1, game2) -> Boolean.compare(!game1.getHasWon(), !game2.getHasWon()));
     }
 }
