@@ -117,6 +117,6 @@ public class PokerManager {
     // EFFECTS: replaces the current game history with newGameHistory
     public void setGameHistory(List<PokerGame> newGameHistory) {
         gameHistory = new ArrayList<>(newGameHistory);
-        EventLog.getInstance().logEvent(new Event("replaced game history"));
+        EventLog.getInstance().logEvent(new Event("saved poker log"));
     }
 }

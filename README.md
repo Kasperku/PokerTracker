@@ -45,3 +45,17 @@ Features:
 - You can locate my visual component by simply starting the program, you will be greeted by a GUI with buttons and a image.
 - You can save the state of my application by clicking the save-poker-log button. It will show you whether the log has been sucessfully saved or if there is a problem.
 - You can reload the state of my application by clicking the load-poker-log button. It will show you whether the log has been sucessfully logged or it there is a problem.
+
+# sample of event log Phase4: Task 2
+Wed Nov 27 01:08:28 PST 2024
+Poker game added
+Wed Nov 27 01:08:40 PST 2024
+Poker game added
+Wed Nov 27 01:09:03 PST 2024
+Poker game edited
+Wed Nov 27 01:09:06 PST 2024
+Game history sorted by amountwon
+Wed Nov 27 01:09:15 PST 2024
+Poker game deleted
+Wed Nov 27 01:09:22 PST 2024
+saved poker log
