@@ -59,3 +59,9 @@ Wed Nov 27 01:09:15 PST 2024
 Poker game deleted
 Wed Nov 27 01:09:22 PST 2024
 saved poker log
+
+# Phase 4: Task 3
+The PokerTrackerGUI and PokerTracker classes directly call to the PokerManager right now. So if there is significant changes 
+to Poker manager, it might messed up the implementation of PokerTrackerGUI and PokerTracker. A refactor might aim to
+improve the flexibility of the code. One way that might help with this is to have a interface that replaces the direct references
+to PokerTracker, and the Ui classes can call the interface instead.
