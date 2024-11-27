@@ -8,7 +8,7 @@ import java.util.Map;
 
 /**
  * Represents a PokerManager for managing poker games, calculating statistics,
- * and sorting games.
+ * and sorting games
  */
 public class PokerManager {
     private List<PokerGame> gameHistory;
@@ -22,27 +22,27 @@ public class PokerManager {
     // EFFECTS: adds a poker game to the game history and logs the event
     public void addPokerGame(PokerGame pokerGame) {
         gameHistory.add(pokerGame);
-        EventLog.getInstance().logEvent(new Event("Poker game added: " + pokerGame));
+        EventLog.getInstance().logEvent(new Event("Poker game added"));
     }
 
-    // REQUIRES: 0 <= index < size of gameHistory and newGame is not null
+    // REQUIRES: 0 <= index and newGame is not null
     // MODIFIES: this
     // EFFECTS: replaces the poker game at the specified index with newGame
     // and logs the event
 
     public void editPokerGame(int index, PokerGame newGame) {
-        PokerGame oldGame = gameHistory.set(index, newGame);
+        gameHistory.set(index, newGame);
         EventLog.getInstance().logEvent(
-                new Event("Poker game edited: " + oldGame + " replaced with " + newGame));
+                new Event("Poker game edited"));
     }
 
-    // REQUIRES: 0 <= index < size of gameHistory
+    // REQUIRES: 0 <= index
     // MODIFIES: this
     // EFFECTS: removes the poker game at the specified index and logs the event
 
     public void delPokerGame(int index) {
-        PokerGame removedGame = gameHistory.remove(index);
-        EventLog.getInstance().logEvent(new Event("Poker game deleted: " + removedGame));
+        gameHistory.remove(index);
+        EventLog.getInstance().logEvent(new Event("Poker game deleted"));
     }
 
     // EFFECTS: return gameHisotyr
@@ -90,25 +90,33 @@ public class PokerManager {
     }
 
     // MODIFIES: this
-    // EFFECTS: sorts the game history by amount won, with the largest wins on top
-
+    // EFFECTS: sorts the game history by amount won, with the largest wins on topW
     public void sortByAmountWon() {
-        gameHistory.sort((game1, game2) -> Integer.compare(game2.getAmount(), game1.getAmount()));
+        gameHistory.sort(new Comparator<PokerGame>() {
+            @Override
+            public int compare(PokerGame game1, PokerGame game2) {
+                return Integer.compare(game2.getAmount(), game1.getAmount());
+            }
+        });
+        EventLog.getInstance().logEvent(new Event("Game history sorted by amountwon"));
     }
 
     // MODIFIES: this
     // EFFECTS: sorts the game history by win/loss, with won games on top
-
     public void sortByWinLoss() {
-        gameHistory.sort((game1, game2) -> Boolean.compare(!game1.getHasWon(), !game2.getHasWon()));
+        gameHistory.sort(new Comparator<PokerGame>() {
+            @Override
+            public int compare(PokerGame game1, PokerGame game2) {
+                return Boolean.compare(!game1.getHasWon(), !game2.getHasWon());
+            }
+        });
+        EventLog.getInstance().logEvent(new Event("Game history sorted by winloss"));
     }
 
     // MODIFIES: this
     // EFFECTS: replaces the current game history with newGameHistory
     public void setGameHistory(List<PokerGame> newGameHistory) {
         gameHistory = new ArrayList<>(newGameHistory);
+        EventLog.getInstance().logEvent(new Event("replaced game history"));
     }
-
-    
-
 }
